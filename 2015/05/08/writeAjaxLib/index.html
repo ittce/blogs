@@ -1,0 +1,416 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>[译]写一个独立的 Ajax/XHR 微型库 | ittce blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ittce">
+    
+
+    
+    <meta name="description" content="原文地址无论你的工作是做web站点还是应用, 你一定面临通过ajax来获取一段文档的内容,或是一个json数据.你也使用一些库来掩饰XHR内部乱七八糟的实现. 有很多的库和一些XHR模块来帮助你使ajax变的简单. 工作中我喜欢Angular中$http方法对XHR的实现.123$http.get(&apos;/endpoint&apos;)  .success(function ( data ) &amp;#123;&amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[译]写一个独立的 Ajax/XHR 微型库">
+<meta property="og:url" content="http://ittce.github.io/blog/2015/05/08/writeAjaxLib/index.html">
+<meta property="og:site_name" content="ittce blog">
+<meta property="og:description" content="原文地址无论你的工作是做web站点还是应用, 你一定面临通过ajax来获取一段文档的内容,或是一个json数据.你也使用一些库来掩饰XHR内部乱七八糟的实现. 有很多的库和一些XHR模块来帮助你使ajax变的简单. 工作中我喜欢Angular中$http方法对XHR的实现.123$http.get(&apos;/endpoint&apos;)  .success(function ( data ) &amp;#123;&amp;#1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[译]写一个独立的 Ajax/XHR 微型库">
+<meta name="twitter:description" content="原文地址无论你的工作是做web站点还是应用, 你一定面临通过ajax来获取一段文档的内容,或是一个json数据.你也使用一些库来掩饰XHR内部乱七八糟的实现. 有很多的库和一些XHR模块来帮助你使ajax变的简单. 工作中我喜欢Angular中$http方法对XHR的实现.123$http.get(&apos;/endpoint&apos;)  .success(function ( data ) &amp;#123;&amp;#1">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ittce blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/blog/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/blog/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/blog/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/blog/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/blog/"><img src="/blog/img/logo.png" alt="ittce blog" title="ittce blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/blog/" title="ittce blog">ittce blog</a></h1>
+				<h2 class="blog-motto">The most difficult thing is the decision to act, the rest is merely tenacity.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/blog/">Home</a></li>
+					
+						<li><a href="/blog/archives">Archives</a></li>
+					
+						<li><a href="/blog/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ittce.github.io/blog">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/blog/2015/05/08/writeAjaxLib/" title="[译]写一个独立的 Ajax/XHR 微型库" itemprop="url">[译]写一个独立的 Ajax/XHR 微型库</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/blog/about" title="ittce" target="_blank" itemprop="author">ittce</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-08T01:59:52.000Z" itemprop="datePublished"> 發表於 2015-05-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#XMLHttpRequest_&&_ActiveXObject"><span class="toc-number">1.</span> <span class="toc-text">XMLHttpRequest && ActiveXObject</span></a></li></ol>
+		
+		</div>
+		
+		<p><a href="http://toddmotto.com/writing-a-standalone-ajax-xhr-javascript-micro-library/" target="_blank" rel="external">原文地址</a><br>无论你的工作是做web站点还是应用, 你一定面临通过ajax来获取一段文档的内容,或是一个json数据.你也使用一些库来掩饰XHR内部乱七八糟的实现. 有很多的库和一些XHR模块来帮助你使ajax变的简单. 工作中我喜欢Angular中$http方法对XHR的实现.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$http.get(<span class="string">'/endpoint'</span>)</span><br><span class="line">  .success(<span class="function"><span class="keyword">function</span> <span class="params">( data )</span> </span>&#123;&#125; )</span><br><span class="line">  .error( <span class="function"><span class="keyword">function</span> <span class="params">( data )</span> </span>&#123;&#125; )</span><br></pre></td></tr></table></figure></p>
+<p>Angular通过好记的 get() 方法,使XHR变的简单, 美好, 容易阅读. 它也有别的方法像 .post(), .put, .delete()去做大多数你需要的工作. 我想我可以通过语法糖的方法写一个跨浏览的XHR模块, 让我带你创建Atomic.js, 下面是结果.<br><a href="https://github.com/toddmotto/atomic/archive/master.zip" target="_blank" rel="external">Download</a><br><a href="https://github.com/toddmotto/atomic" target="_blank" rel="external">Fork on github</a></p>
+<h3 id="XMLHttpRequest_&amp;&amp;_ActiveXObject">XMLHttpRequest &amp;&amp; ActiveXObject</h3><p>有趣的是它们都是微软先提出的, ajax技术的第一次实现是通过ActiveXObjct. 几年后通过XMLHttpRequset形成标准, 现在我们依然通过XHR来和server通信. 在网页中你经常可以看到这样的脚本来实现跨浏览器的ajax :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getXHR</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">window</span>.XMLHttpRequest ) &#123;</span><br><span class="line">    <span class="comment">// Chrome, Firefox, IE7+, Opera, Safari</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//IE6</span></span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="string">'MSXML2.XMLHTTP.6.0'</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span>( e ) &#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="string">'MSXML2.XMLHTTP.3.0'</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span>( e )&#123;</span><br><span class="line">      alert(<span class="string">'This browser is not AJAX enabled.'</span>); </span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先, 如果你没有接触过原生的javascript, 你可能想知道在所有库和包装之下, 究竟发生了什么. 最开始像这样( 注释版本 ) :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span><span class="params">(</span><br><span class="line">  a <span class="comment">//占位符, 类似于在函数内部var a;</span></span><br><span class="line">  )</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(                    <span class="comment">// 循环所有的a </span></span><br><span class="line">      a = <span class="number">3</span>;                <span class="comment">// 从 3</span></span><br><span class="line">      a--;                  <span class="comment">// 到 0,</span></span><br><span class="line">    ) <span class="keyword">try</span> &#123;                 <span class="comment">// 尝试</span></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span>(           <span class="comment">// 返回一个实例</span></span><br><span class="line">        <span class="keyword">this</span>.XMLHttpRequest <span class="comment">// XMLHttpRequest (w3c) 标准</span></span><br><span class="line">        ||                  <span class="comment">// 或</span></span><br><span class="line">        ActiveXObject       <span class="comment">// ActiveXObject (MS) IE6</span></span><br><span class="line">      )([                   <span class="comment">// 反应</span></span><br><span class="line">        <span class="string">"Msxml2"</span>,           <span class="comment">// 这个</span></span><br><span class="line">        <span class="string">"Msxml3"</span>,           <span class="comment">// various 各个</span></span><br><span class="line">        <span class="string">"Microsoft"</span>][a] +   <span class="comment">// MS flavors 微软的接口</span></span><br><span class="line">        <span class="string">".XMLHTTP"</span>          <span class="comment">// and appropriate suffix, 适当的后缀</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">catch</span>(e)&#123;&#125;              <span class="comment">// 忽略失败</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>重构结束时变成了一个很小的版本 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span>(<span class="keyword">this</span>.XMLHttpRequest || ActiveXObject)(<span class="string">'MSXML2.XMLHTTP.3.0'</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;&#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
+<p>我不知道你的感觉,但我觉得这像一个魔术,我喜欢它. 这使得我们在任何浏览器中都可以基于构造函数调用正确的ajax.我们不需要像jed 那样实施这么复杂的循环, 我们可以用上面的参数来走一条新路.</p>
+<p>因此, 我使用这个伟大的实现来作为 <a href="https://github.com/toddmotto/atomic" target="_blank" rel="external">atomic.js</a> 的基础.</p>
+<p>以上所有的的操作 atomic.js 都可以实现, 在不和server链接的情况下, 并且比XHR的封装更轻量. 下一步我们继续来探究, 使用一个简化的 get 例子来探究 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get XHR</span></span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">//函数为了每次的 onreadystatechange</span></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//通过'get'来建立连接</span></span><br><span class="line">xhr.open( <span class="string">'GET'</span>, <span class="string">'/endpoint'</span>, <span class="literal">true</span> );</span><br><span class="line"><span class="comment">// 发送它</span></span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure></p>
+<p>在 onreadystatechange 里面, 我们需要筛选出我们需要的状态.  这是一个状态的列表和它们的意思 :<br>0 : 请求未初始化; 1 : 服务器简历连接; 2 : 收到请求; 3 : 处理请求; 4 : 请求完成并响应就绪</p>
+<p>我们需要他们都是就绪, 因此我们监听 4 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( xhr.readyState === <span class="number">4</span> ) &#123;</span><br><span class="line">    <span class="comment">//请求完成并响应就绪</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们希望接下来获取一个200的状态, 它表示成功. 也会有可能错误例如 : 服务器丢包, 没通过认证等; 但是为了简单一点, 我们假设所有都是对的:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( xhr.readyState === <span class="number">4</span> ) &#123;</span><br><span class="line">    <span class="comment">//请求完成并响应就绪</span></span><br><span class="line">    <span class="keyword">if</span> ( xhr.state === <span class="number">200</span> ) &#123;</span><br><span class="line">      <span class="comment">// 所有都是对的</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果它失败了怎么办呢, 我们只需要加一个 else 的函数就可以了 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="comment">// request finished and response is ready</span></span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// all is well!</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// things are not well :(</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>现在所有都就绪了 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// get XHR</span></span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest(); </span><br><span class="line"></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="comment">// request finished and response is ready</span></span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// all is well!</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// things are not well :(</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// open the connection and make the `GET`</span></span><br><span class="line">xhr.open(<span class="string">'GET'</span>, <span class="string">'/endpoint'</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// send it!</span></span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure></p>
+<p>它们为我们使用XHR打下了基础.</p>
+<p>如果要改写它的话非常麻烦, 这就是为什么我们要将它们封装成一个可以重复利用的模块. 因为喜欢 Angular的语法, 我想过这样做 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">atomic.get(<span class="string">'/endpoint'</span>)</span><br><span class="line">.success(<span class="function"><span class="keyword">function</span> <span class="params">(data)</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;)</span><br><span class="line">.error(<span class="function"><span class="keyword">function</span> <span class="params">(data)</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>看起来非常眼熟 ? </p>
+<p>以上面的工作为基础, 我创建了一些链接的方法为模块, 增加自动解析JSON, 结束了当前的版本( atomic.js V1.0.0 ) :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">( <span class="function"><span class="keyword">function</span> <span class="params">( root, factory )</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd ) &#123;</span><br><span class="line">    define( factory );</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="keyword">typeof</span> exports === <span class="string">'object'</span> )&#123;</span><br><span class="line">    <span class="built_in">module</span>.exports = factory;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    root.atomic = factory( root );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)( <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> <span class="params">( root )</span></span>&#123;</span><br><span class="line"><span class="pi"> 'use strict'</span>;</span><br><span class="line"> <span class="keyword">var</span> exports = &#123;&#125;;</span><br><span class="line"> <span class="keyword">var</span> parse = <span class="function"><span class="keyword">function</span> <span class="params">( req )</span> </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> result;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">     result = <span class="built_in">JSON</span>.parse( req.responseText );</span><br><span class="line">   &#125; <span class="keyword">catch</span> ( e ) &#123;</span><br><span class="line">     result = req.responseText;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> [ result, req ];</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">var</span> xhr = <span class="function"><span class="keyword">function</span> <span class="params">( type, url, data )</span> </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> methods = &#123;</span><br><span class="line">     success : <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;&#125;,</span><br><span class="line">     error   : <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">   &#125;;</span><br><span class="line">   <span class="keyword">var</span> XHR = root.XMLHttpRequset || ActiveXObject;</span><br><span class="line">   <span class="keyword">var</span> request = <span class="keyword">new</span> XHR(<span class="string">'MSXML2.XMLHTTP.3.0'</span>);</span><br><span class="line">   request.open( type, url, <span class="literal">true</span> );</span><br><span class="line">   request.setRequestHeader( <span class="string">'Content-type'</span>, <span class="string">'application/x-www-form-urlencoded'</span> );</span><br><span class="line">   request.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> ( request.readyState === <span class="number">4</span> ) &#123;</span><br><span class="line">       <span class="keyword">if</span> ( request.state === <span class="number">200</span> ) &#123;</span><br><span class="line">         methods.success.apply( methods, parse( request ) );</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         methods.error.apply( methods, parse( request ) );</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;;</span><br><span class="line">   request.send( data );</span><br><span class="line">   <span class="keyword">return</span> &#123;</span><br><span class="line">     success : <span class="function"><span class="keyword">function</span> <span class="params">( callback )</span> </span>&#123;</span><br><span class="line">       methods.success = callback;</span><br><span class="line">       <span class="keyword">return</span> methods;</span><br><span class="line">     &#125;,</span><br><span class="line">     error : <span class="function"><span class="keyword">function</span> <span class="params">( callback )</span> </span>&#123;</span><br><span class="line">       methods.error = callback;</span><br><span class="line">       <span class="keyword">return</span> methods;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> exports[<span class="string">'get'</span>] = <span class="function"><span class="keyword">function</span> <span class="params">( src )</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> xhr( <span class="string">'GET'</span>, src );</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> exports[<span class="string">'put'</span>] = <span class="function"><span class="keyword">function</span> <span class="params">( url, data )</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> xhr( <span class="string">'PUT'</span>, url, data );</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> exports[<span class="string">'post'</span>] = <span class="function"><span class="keyword">function</span> <span class="params">( url, data )</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> xhr( <span class="string">'POST'</span>, url, data );</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> exports[<span class="string">'delete'</span>] = <span class="function"><span class="keyword">function</span> <span class="params">( url )</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> xhr( <span class="string">'DELETE'</span>, url );</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> exports;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>使用atomic.js像很容易, 就像使用其它库一样, 而且它拥有一个非常可读的语法, 1kb的大小, 以及远远超出它本身1kb大小的功能. </p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ittce.github.io/blog/2015/05/08/writeAjaxLib/" data-title="[译]写一个独立的 Ajax/XHR 微型库 | ittce blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/blog/2015/05/08/arrowFunction/" title="ES6 =&gt;的功能 语法 和 词法作用域">
+  <strong>上一篇：</strong><br/>
+  <span>
+  ES6 =&gt;的功能 语法 和 词法作用域</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/blog/2015/05/07/closeProblem/"  title="刷题宝典">
+ <strong>下一篇：</strong><br/> 
+ <span>刷题宝典
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#XMLHttpRequest_&&_ActiveXObject"><span class="toc-number">1.</span> <span class="toc-text">XMLHttpRequest && ActiveXObject</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/blog/about" target="_blank" title="ittce">ittce</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/blog/js/jquery-2.0.3.min.js"></script>
+<script src="/blog/js/jquery.imagesloaded.min.js"></script>
+<script src="/blog/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/blog/img/scrollup.png"/></a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,439 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>刷题宝典 | ittce blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ittce">
+    
+
+    
+    <meta name="description" content="Question：There is a secret message in the first six sentences of this kata description. Have you ever felt like there was something more being said? Was it hard to figure out that unspoken meaning? Ne">
+<meta property="og:type" content="article">
+<meta property="og:title" content="刷题宝典">
+<meta property="og:url" content="http://ittce.github.io/blog/2015/05/07/closeProblem/index.html">
+<meta property="og:site_name" content="ittce blog">
+<meta property="og:description" content="Question：There is a secret message in the first six sentences of this kata description. Have you ever felt like there was something more being said? Was it hard to figure out that unspoken meaning? Ne">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="刷题宝典">
+<meta name="twitter:description" content="Question：There is a secret message in the first six sentences of this kata description. Have you ever felt like there was something more being said? Was it hard to figure out that unspoken meaning? Ne">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ittce blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/blog/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/blog/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/blog/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/blog/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/blog/"><img src="/blog/img/logo.png" alt="ittce blog" title="ittce blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/blog/" title="ittce blog">ittce blog</a></h1>
+				<h2 class="blog-motto">The most difficult thing is the decision to act, the rest is merely tenacity.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/blog/">Home</a></li>
+					
+						<li><a href="/blog/archives">Archives</a></li>
+					
+						<li><a href="/blog/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ittce.github.io/blog">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/blog/2015/05/07/closeProblem/" title="刷题宝典" itemprop="url">刷题宝典</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/blog/about" title="ittce" target="_blank" itemprop="author">ittce</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-07T06:04:24.000Z" itemprop="datePublished"> 發表於 2015-05-07</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Question："><span class="toc-number">1.</span> <span class="toc-text">Question：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Anwser："><span class="toc-number">1.1.</span> <span class="toc-text">Anwser：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question:"><span class="toc-number">2.</span> <span class="toc-text">Question:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Answer:"><span class="toc-number">2.1.</span> <span class="toc-text">Answer:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question:-1"><span class="toc-number">3.</span> <span class="toc-text">Question:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Anwser:"><span class="toc-number">3.1.</span> <span class="toc-text">Anwser:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question:-2"><span class="toc-number">4.</span> <span class="toc-text">Question:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Answer:-1"><span class="toc-number">4.1.</span> <span class="toc-text">Answer:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question:-3"><span class="toc-number">5.</span> <span class="toc-text">Question:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Answer:-2"><span class="toc-number">5.1.</span> <span class="toc-text">Answer:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question"><span class="toc-number">6.</span> <span class="toc-text">Question</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Anwser_:"><span class="toc-number">6.1.</span> <span class="toc-text">Anwser :</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question:-4"><span class="toc-number">7.</span> <span class="toc-text">Question:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Answer:-3"><span class="toc-number">7.1.</span> <span class="toc-text">Answer:</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h4 id="Question：">Question：</h4><p>There is a secret message in the first six sentences of this kata description. Have you ever felt like there was something more being said? Was it hard to figure out that unspoken meaning? Never again! Never will a secret go undiscovered. Find all duplicates from our message!</p>
+<p>Your job is to write a function findSecretMessage that will find the secret words of the message and return them in order. The words in the secret message should be ordered in the order in which they are found as a duplicate.</p>
+<p>Example<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'This is a test. this test is fun.'</span> <span class="comment">//-&gt; this test is</span></span><br></pre></td></tr></table></figure></p>
+<p>NOTE: the casing of words should not matter for the purpose of this kata. We are only concerned with word duplication, regardless of upper or lower case letters.</p>
+<h5 id="Anwser：">Anwser：</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//me</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findSecretMessage</span><span class="params">( paragraph )</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> arr = paragraph.toLowerCase().match(<span class="regexp">/(\w+)/g</span>), arr2=[];</span><br><span class="line">	<span class="keyword">var</span>  obj = &#123;&#125;;</span><br><span class="line">	<span class="keyword">while</span>( arr.length )&#123;</span><br><span class="line">		<span class="keyword">var</span> item = arr.shift();</span><br><span class="line">		<span class="keyword">if</span> ( obj[item] &amp;&amp; obj[item] &gt;= <span class="number">2</span> )<span class="keyword">continue</span>;</span><br><span class="line">		obj[item] = obj[item] ? ++obj[item] : <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> ( obj[item] ==<span class="number">2</span> )&#123;</span><br><span class="line">			arr2.push(item);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> arr2.join(<span class="string">' '</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//manito</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findSeretMessage</span><span class="params">( paragraph )</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> paragraph.toLowerCase().split(<span class="regexp">/\W+/</span>).filter( <span class="function"><span class="keyword">function</span><span class="params">( word, i, words )</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> words.indexOf( word, words.indexOf(word)+<span class="number">1</span> ) == i;</span><br><span class="line">	&#125;).join(<span class="string">' '</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Question:">Question:</h4><p>Write a function toWeirdCase (weirdcase in Ruby) that accepts a string, and returns the same string with all even indexed characters in each word upper cased, and all odd indexed characters in each word lower cased. The indexing just explained is zero based, so the zero-ith index is even, therefore that character should be upper cased.</p>
+<p>The passed in string will only consist of alphabetical characters and spaces(‘ ‘). Spaces will only be present if there are multiple words. Words will be separated by a single space(‘ ‘).</p>
+<p>Examples<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">toWeirdCase( <span class="string">"String"</span> );<span class="comment">//=&gt; returns "StRiNg"</span></span><br><span class="line">toWeirdCase( <span class="string">"Weird string case"</span> );<span class="comment">//=&gt; returns "WeIrD StRiNg CaSe"</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="Answer:">Answer:</h5><p>我的答案<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toWeirdCase</span><span class="params">(string)</span></span>&#123;</span><br><span class="line">  string = string.split(<span class="string">' '</span>);</span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; string.length; i++ )&#123;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">var</span> j = <span class="number">0</span>, arr = string[i].split(<span class="string">''</span>); j &lt; arr.length ; j+=<span class="number">2</span> )&#123;</span><br><span class="line">           arr[j]=arr[j].toUpperCase();</span><br><span class="line">        &#125;</span><br><span class="line">        string[i]= arr.join(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> string.join(<span class="string">' '</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>别人的答案<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toWeirdCase</span><span class="params">(string)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> string.split(<span class="string">' '</span>).map(<span class="function"><span class="keyword">function</span><span class="params">(w)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> w.split(<span class="string">''</span>).map(<span class="function"><span class="keyword">function</span><span class="params">(l, i)</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> l[(!(i%<span class="number">2</span>))?<span class="string">'toUpperCase'</span>:<span class="string">'toLowerCase'</span>]()</span><br><span class="line">    &#125;).join(<span class="string">''</span>);</span><br><span class="line">  &#125;).join(<span class="string">' '</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toWeirdCase</span><span class="params">(string)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> string.replace(<span class="regexp">/(\b(\S)*\b)/g</span>, <span class="function"><span class="keyword">function</span><span class="params">(v,i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> v.split(<span class="string">""</span>).map(<span class="function"><span class="keyword">function</span><span class="params">(v, i)</span> </span>&#123; <span class="keyword">return</span> (i%<span class="number">2</span> == <span class="number">0</span>) ? v.toUpperCase(): v&#125;).join(<span class="string">""</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Question:-1">Question:</h4><p>Write a function isIntArray with the below signature.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIntArray</span><span class="params">(arr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>returns true if every element in an array is an integer. </li>
+<li>returns true if array is empty.</li>
+<li>returns false for every other input.</li>
+</ul>
+<h5 id="Anwser:">Anwser:</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//me</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIntArray</span><span class="params">(arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>( <span class="built_in">Array</span>.isArray(arr) )&#123;</span><br><span class="line">    <span class="keyword">if</span> ( arr.length == <span class="number">0</span>  || arr.every( <span class="function"><span class="keyword">function</span> <span class="params">( item )</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">isNaN</span>(item) ? <span class="literal">false</span> : <span class="keyword">typeof</span> item !== <span class="string">'number'</span> ? <span class="literal">false</span> : <span class="regexp">/^(-|\+)?\d+$/</span>.test(item) ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">    &#125;))&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//other</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIntArray</span><span class="params">(arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.isArray(arr) &amp;&amp; arr.every(<span class="function"><span class="keyword">function</span> <span class="params">(x)</span> </span>&#123; <span class="keyword">return</span> <span class="built_in">Math</span>.floor(x) === x &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIntArray</span><span class="params">(arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> arr?arr.every(<span class="function"><span class="keyword">function</span><span class="params">(n)</span></span>&#123;<span class="keyword">return</span> ~~n === n;&#125;):<span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Question:-2">Question:</h4><p>Given two arrays of strings a1 and a2 return a sorted array in lexicographical order and without duplicates of the strings of a1 which are substrings of strings of a2.</p>
+<p>Example: a1 = [“arp”, “live”, “strong”]</p>
+<p>a2 = [“lively”, “alive”, “harp”, “sharp”, “armstrong”]</p>
+<p>returns [“arp”, “live”, “strong”]</p>
+<p>a1 = [“tarp”, “mice”, “bull”]</p>
+<p>a2 = [“lively”, “alive”, “harp”, “sharp”, “armstrong”]</p>
+<p>returns []</p>
+<p>Note: Arrays are written in “general” notation. See “Your Test Cases” for examples in your language.</p>
+<h5 id="Answer:-1">Answer:</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inArray</span><span class="params">( array1, array2 )</span></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result = [];</span><br><span class="line">  array1.map( <span class="function"><span class="keyword">function</span><span class="params">( v, i )</span></span>&#123;</span><br><span class="line">    array2.join(<span class="string">','</span>).indexOf(v) &gt;= <span class="number">0</span> ? result.push(v) : <span class="literal">false</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//应该使用filter，修改了下</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inArray</span><span class="params">( array1, array2 )</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> array1.filter( <span class="function"><span class="keyword">function</span><span class="params">( v, i )</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array2.join(<span class="string">','</span>).indexOf( v ) &gt;= <span class="number">0</span>;</span><br><span class="line">  &#125;).sort();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Question:-3">Question:</h4><p>There are two lists of different length. The first one consists of keys, the second one consists of values. Write a function createDict(keys, values) that returns a dictionary created from keys and values. If there are not enough values, the rest of keys should have a None (JS null)value. If there not enough keys, just ignore the rest of values.</p>
+<p>Example1:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">keys = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]</span><br><span class="line">values = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">createDict(keys, values) <span class="comment">// returns &#123;'a': 1, 'b': 2, 'c': 3, 'd': null&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>Example2:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">keys = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</span><br><span class="line">values = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">createDict(keys, values) <span class="comment">// returns &#123;'a': 1, 'b': 2, 'c': 3&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="Answer:-2">Answer:</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//me</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createDict</span><span class="params">( keys, values )</span></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">  keys.map( <span class="function"><span class="keyword">function</span> <span class="params">( v, i )</span> </span>&#123;</span><br><span class="line">    obj[v] = <span class="keyword">typeof</span> values[i] !== <span class="string">'undefined'</span> ? values[i] : <span class="literal">null</span>; </span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//other</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createDict</span><span class="params">( keys, values )</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> keys.reduce( <span class="function"><span class="keyword">function</span> <span class="params">( o, v, i )</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> o[v] = i <span class="keyword">in</span> values ? values[i] : <span class="literal">null</span>,o;</span><br><span class="line">  &#125;,&#123;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Question">Question</h4><p>Write a function that accepts two square matrices (nxn two dimensional arrays), and return the sum of the two. Both matrices being passed into the function will be of size nxn (square), containing only integers.</p>
+<p>How to sum two matrices:<br>Take each cell [n][m] from the first matrix, and add it with the [n][m] cell from the second matrix. This will be cell [n][m] in the solution matrix.</p>
+<p>Visualization:<br>|1 2 3|<br>|3 2 1|<br>|1 1 1|<br>+<br>|2 2 1|<br>|3 2 3|<br>|1 1 3|<br>=<br>|3 4 4|<br>|6 4 4|<br>|2 2 4|</p>
+<p>Example function call:<br>matrixAddition( [ [1, 2, 3], [3, 2, 1,], [1, 1, 1] ], [ [2, 2, 1], [3, 2, 3], [1, 1, 3] ] );<br>returns [ [3, 4, 4], [6, 4, 4], [2, 2, 4] ]</p>
+<h5 id="Anwser_:">Anwser :</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ES5</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">matrixAddition</span><span class="params">( a, b )</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a.map( <span class="function"><span class="keyword">function</span> <span class="params">( item , i )</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a[i].map( <span class="function"><span class="keyword">function</span> <span class="params">( arr, j )</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> arr + b[i][j];</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">matrixAddition</span><span class="params">(a, b)</span></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> c = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">    c[i] = (<span class="keyword">typeof</span> a[i] !== <span class="string">'number'</span>) ? matrixAddition(a[i], b[i]) : a[i] + b[i];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Question:-4">Question:</h4><p>You’ve just recently been hired to calculate scores for a Dart Board game! </p>
+<p>Scoring specifications:<br>0 points - radius above 10<br>5 points - radius between 5 and 10 inclusive<br>10 points - radius less than 5</p>
+<p>If all radiuses are less than 5, award 100 BONUS POINTS!</p>
+<p>Write a function that accepts an array of radiuses (can be integers and/or floats),<br>and returns a total score using the above specification.<br>An empty array should return 0.</p>
+<p>Examples:<br>scoreThrows( [1, 5, 11] ) =&gt; returns 15<br>scoreThrows( [15, 20, 30] ) =&gt; returns 0<br>scoreThrows( [1, 2, 3, 4] ) =&gt; returns 140</p>
+<h5 id="Answer:-3">Answer:</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//me</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scoreThrows</span><span class="params">(radiuses)</span></span>&#123;</span><br><span class="line">  <span class="comment">//Return total number of points</span></span><br><span class="line">  <span class="keyword">if</span> ( radiuses.length == <span class="number">0</span> ) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> result = <span class="number">0</span>;</span><br><span class="line">  radiuses.map( <span class="function"><span class="keyword">function</span> <span class="params">( item )</span> </span>&#123;</span><br><span class="line">	  result += item &gt; <span class="number">10</span> ? <span class="number">0</span> : item &gt;= <span class="number">5</span> ? <span class="number">5</span> : <span class="number">10</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> result == radiuses.length * <span class="number">10</span> ? result + <span class="number">100</span> : result; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//other</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scoreThrows</span><span class="params">(rr, s)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (s=rr.map(<span class="function"><span class="keyword">function</span><span class="params">(r)</span></span>&#123; <span class="keyword">return</span> r&lt;<span class="number">5</span>? <span class="number">10</span>: r&lt;=<span class="number">10</span>? <span class="number">5</span> : <span class="number">0</span> &#125;).reduce(<span class="function"><span class="keyword">function</span><span class="params">(s,v)</span></span>&#123; <span class="keyword">return</span> s+v&#125;,<span class="number">0</span>)), s&amp;&amp;s==<span class="number">10</span>*rr.length? s+<span class="number">100</span>:s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ittce.github.io/blog/2015/05/07/closeProblem/" data-title="刷题宝典 | ittce blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/blog/2015/05/08/writeAjaxLib/" title="[译]写一个独立的 Ajax/XHR 微型库">
+  <strong>上一篇：</strong><br/>
+  <span>
+  [译]写一个独立的 Ajax/XHR 微型库</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/blog/2015/05/07/orderLine/"  title="命令行使用笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>命令行使用笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Question："><span class="toc-number">1.</span> <span class="toc-text">Question：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Anwser："><span class="toc-number">1.1.</span> <span class="toc-text">Anwser：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question:"><span class="toc-number">2.</span> <span class="toc-text">Question:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Answer:"><span class="toc-number">2.1.</span> <span class="toc-text">Answer:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question:-1"><span class="toc-number">3.</span> <span class="toc-text">Question:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Anwser:"><span class="toc-number">3.1.</span> <span class="toc-text">Anwser:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question:-2"><span class="toc-number">4.</span> <span class="toc-text">Question:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Answer:-1"><span class="toc-number">4.1.</span> <span class="toc-text">Answer:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question:-3"><span class="toc-number">5.</span> <span class="toc-text">Question:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Answer:-2"><span class="toc-number">5.1.</span> <span class="toc-text">Answer:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question"><span class="toc-number">6.</span> <span class="toc-text">Question</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Anwser_:"><span class="toc-number">6.1.</span> <span class="toc-text">Anwser :</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Question:-4"><span class="toc-number">7.</span> <span class="toc-text">Question:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Answer:-3"><span class="toc-number">7.1.</span> <span class="toc-text">Answer:</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/blog/about" target="_blank" title="ittce">ittce</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/blog/js/jquery-2.0.3.min.js"></script>
+<script src="/blog/js/jquery.imagesloaded.min.js"></script>
+<script src="/blog/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/blog/img/scrollup.png"/></a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

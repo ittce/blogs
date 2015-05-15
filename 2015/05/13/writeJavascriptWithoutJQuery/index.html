@@ -1,0 +1,404 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>write javascript without jQuery | ittce blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ittce">
+    
+
+    
+    <meta name="description" content="原文地址前面的废话不想翻译了，直接上干货吧。在浏览器日益发展的今天你可能并不需要jQuery了。这里有几个方法帮助你离开jQuery写javascirpt
+监听DOM ready当你写jQuery的时候第一件事情，就是调用 $(document).ready() 来知道DOM什么时候ready。离开jQUery，我们有 DOMContentLoaded 事件。123document.addEven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="write javascript without jQuery">
+<meta property="og:url" content="http://ittce.github.io/blog/2015/05/13/writeJavascriptWithoutJQuery/index.html">
+<meta property="og:site_name" content="ittce blog">
+<meta property="og:description" content="原文地址前面的废话不想翻译了，直接上干货吧。在浏览器日益发展的今天你可能并不需要jQuery了。这里有几个方法帮助你离开jQuery写javascirpt
+监听DOM ready当你写jQuery的时候第一件事情，就是调用 $(document).ready() 来知道DOM什么时候ready。离开jQUery，我们有 DOMContentLoaded 事件。123document.addEven">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="write javascript without jQuery">
+<meta name="twitter:description" content="原文地址前面的废话不想翻译了，直接上干货吧。在浏览器日益发展的今天你可能并不需要jQuery了。这里有几个方法帮助你离开jQuery写javascirpt
+监听DOM ready当你写jQuery的时候第一件事情，就是调用 $(document).ready() 来知道DOM什么时候ready。离开jQUery，我们有 DOMContentLoaded 事件。123document.addEven">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ittce blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/blog/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/blog/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/blog/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/blog/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/blog/"><img src="/blog/img/logo.png" alt="ittce blog" title="ittce blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/blog/" title="ittce blog">ittce blog</a></h1>
+				<h2 class="blog-motto">The most difficult thing is the decision to act, the rest is merely tenacity.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/blog/">Home</a></li>
+					
+						<li><a href="/blog/archives">Archives</a></li>
+					
+						<li><a href="/blog/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ittce.github.io/blog">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/blog/2015/05/13/writeJavascriptWithoutJQuery/" title="write javascript without jQuery" itemprop="url">write javascript without jQuery</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/blog/about" title="ittce" target="_blank" itemprop="author">ittce</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-13T12:12:07.000Z" itemprop="datePublished"> 發表於 2015-05-13</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#监听DOM_ready"><span class="toc-number">1.</span> <span class="toc-text">监听DOM ready</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择DOM节点"><span class="toc-number">2.</span> <span class="toc-text">选择DOM节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加和移除事件监听"><span class="toc-number">3.</span> <span class="toc-text">添加和移除事件监听</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作类名_和_属性"><span class="toc-number">4.</span> <span class="toc-text">操作类名 和 属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取和设置节点内容"><span class="toc-number">5.</span> <span class="toc-text">获取和设置节点内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插入和删除元素"><span class="toc-number">6.</span> <span class="toc-text">插入和删除元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历_DOM_tree"><span class="toc-number">7.</span> <span class="toc-text">遍历 DOM tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历数组"><span class="toc-number">8.</span> <span class="toc-text">遍历数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动画"><span class="toc-number">9.</span> <span class="toc-text">动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ajax"><span class="toc-number">10.</span> <span class="toc-text">Ajax</span></a></li></ol>
+		
+		</div>
+		
+		<p><a href="http://tutorialzine.com/2014/06/10-tips-for-writing-javascript-without-jquery/" target="_blank" rel="external">原文地址</a><br>前面的废话不想翻译了，直接上干货吧。在浏览器日益发展的今天你可能并不需要jQuery了。这里有几个方法帮助你离开jQuery写javascirpt</p>
+<h3 id="监听DOM_ready">监听DOM ready</h3><p>当你写jQuery的时候第一件事情，就是调用 <code>$(document).ready()</code> 来知道DOM什么时候ready。离开jQUery，我们有 <code>DOMContentLoaded</code> 事件。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log( <span class="string">'hi, I am ittce!'</span> );</span><br><span class="line">&#125;, <span class="literal">false</span> )</span><br></pre></td></tr></table></figure></p>
+<h3 id="选择DOM节点">选择DOM节点</h3><p>之前我们使用原生的javascript只能通过 id, tagName,  class来获取DOM节点。 但是现在浏览器实现了 <code>querySelector</code> &amp;&amp; <code>querySelectorAll</code> 。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lochNess = <span class="built_in">document</span>.querySelector(<span class="string">'.lochNess'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> scary = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.monsters'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; scary.length; i++ )&#123;</span><br><span class="line">	<span class="built_in">console</span>.log( scary[i].innerHTML );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//但是我觉得封装一下更便于使用 这是选取第一个匹配的元素</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$</span><span class="params">( context, expr )</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">typeof</span> expr === <span class="string">'string'</span> ? ( context || <span class="built_in">document</span> ).querySelector( expr ) : expr || <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这个是返回所有在context 范围内匹配的元素的一个数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$$</span><span class="params">( context, expr )</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> [].slice.call( ( context || <span class="built_in">document</span> ).querySelectorAll( expr ) );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="添加和移除事件监听">添加和移除事件监听</h3><p>添加事件监听是创建web应用非常重要的一部分。以前IE和标准浏览器使用两个不同的API去添加事件监听。 但是今天我们只需要使用<code>addEventListener</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">var</span> btn = <span class="built_in">document</span>.querySelectorAll(<span class="string">"button"</span>),</span><br><span class="line">    list = <span class="built_in">document</span>.querySelector(<span class="string">"ul"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们调用addEventListenter 方法在我们期望的事件目标上( 这里是一个按钮 ).</span></span><br><span class="line"><span class="comment">// 这将在响应点击事件的节点上开启一个监听器。</span></span><br><span class="line"></span><br><span class="line">btn[<span class="number">0</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 当按钮被点击之后我们期望对我们的列表启动缩放。</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">//因此我们在列表上添加一个事件监听</span></span><br><span class="line">	<span class="comment">// 当鼠标划过它, enlarge函数将被调用。</span></span><br><span class="line">    list.addEventListener(<span class="string">"mouseover"</span>, enlarge);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭缩放我们可以简单的使用 removeEventListener</span></span><br><span class="line"></span><br><span class="line">btn[<span class="number">1</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 删除事件监听的时候不能使用匿名函数, 因此要为函数命名</span></span><br><span class="line">    list.removeEventListener(<span class="string">"mouseover"</span>, enlarge);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建我们的 enlarge 函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> enlarge = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 添加类名 zoomed 到这个无序列表</span></span><br><span class="line"></span><br><span class="line">    list.classList.add(<span class="string">"zoomed"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// When the cursor leaves the list return to normal size by removing the class.</span></span><br><span class="line">	<span class="comment">// 当鼠标离开时, 删除 类名 来让 列表返回默认状态</span></span><br><span class="line"></span><br><span class="line">    list.addEventListener(<span class="string">"mouseout"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        list.classList.remove(<span class="string">"zoomed"</span>)</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在我们希望点击的时候 给他们的上色</span></span><br><span class="line"><span class="comment">// 当点击事件触发时, 我们希望给被点击的原色上色。</span></span><br><span class="line"><span class="comment">// 由于事件委托可以可以利用父节点来操作真正被点击的节点</span></span><br><span class="line"><span class="comment">// 这样我们可以不用给每个li添加事件监听</span></span><br><span class="line"></span><br><span class="line">list.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Make the coloring happen only to the clicked element by taking the target of the event.</span></span><br><span class="line">	<span class="comment">// 让仅有的那个被点击的元素上色</span></span><br><span class="line">    e.target.classList.add(<span class="string">'green'</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="操作类名_和_属性">操作类名 和 属性</h3><p>在一个元素上利用jQuery操作类名是非常简单的。 现在非常感谢 <code>classList</code> 特性，我们可以利用原生来方便的操作类名。如果你希望操作属性， 我们可以使用 <code>setAttribute</code>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">var</span> btn = <span class="built_in">document</span>.querySelectorAll(<span class="string">"button"</span>),</span><br><span class="line">    div = <span class="built_in">document</span>.querySelector(<span class="string">"#myDiv"</span>);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">0</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取属性很简单。</span></span><br><span class="line">    <span class="built_in">console</span>.log(div.id);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Element.classList 存储所有的这个节点的所有类名。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> classes = div.classList;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">btn[<span class="number">1</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(classes);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">2</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 它支持 添加和删除类名。</span></span><br><span class="line">    classes.add(<span class="string">"red"</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">3</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 你也可以切换一个class</span></span><br><span class="line">    classes.toggle(<span class="string">"hidden"</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="获取和设置节点内容">获取和设置节点内容</h3><p>jQuery有 <code>text()</code> 和 <code>html()</code> 方法。 这里我们可以使用 <code>textContent</code> &amp;&amp; <code>innerHTML</code>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myText = <span class="built_in">document</span>.querySelector(<span class="string">"#myParagraph"</span>),</span><br><span class="line">    btn = <span class="built_in">document</span>.querySelectorAll(<span class="string">"button"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们可以很简单的获取 一个几点和它后代的 文本内容</span></span><br><span class="line"><span class="keyword">var</span> myContent = myText.textContent;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"textContent:  "</span> + myContent);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 textContent 去弹出一个元素的文本</span></span><br><span class="line"><span class="comment">// 删除掉旧的文本并把它替换成新的</span></span><br><span class="line"></span><br><span class="line">btn[<span class="number">0</span>].addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    myText.textContent = <span class="string">" Koalas are the best animals "</span>;</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果我们希望获取一个节点所有的HTML代码，我们可以使用`innerHTML`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myHtml = myText.innerHTML;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"innerHTML:  "</span> + myHtml);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用新的内容去更改 html</span></span><br><span class="line"><span class="comment">// 当然我们可以不用局限在这一次的文本里</span></span><br><span class="line"></span><br><span class="line">btn[<span class="number">1</span>].addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    myText.innerHTML = <span class="string">"&lt;button&gt; Penguins are the best animals &lt;/button&gt;"</span>;</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="插入和删除元素">插入和删除元素</h3><p>使用jQuery 可以让们添加和删除 节点更简单。 使用原生我们也可以做到像你想的那个添加， 删除和替换节点。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lunch = <span class="built_in">document</span>.querySelector(<span class="string">"#lunch"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们想给它添加元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> addFries = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 首先我们创建新的元素并塞入内容</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fries = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    fries.innerHTML = <span class="string">'&lt;li&gt;&lt;h4&gt; Fries &lt;/h4&gt;&lt;/li&gt;'</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 完成之后我们可以使用 appendChild 去插入它</span></span><br><span class="line">    <span class="comment">// 这让让我们新创建的元素插入在父元素的最后</span></span><br><span class="line"></span><br><span class="line">    lunch.appendChild(fries);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在我们想在父级元素内部两个子元素之间插入元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> addCheese = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> beef = <span class="built_in">document</span>.querySelector(<span class="string">"#Beef"</span>),</span><br><span class="line"></span><br><span class="line">            topSlice = <span class="built_in">document</span>.createElement(<span class="string">"li"</span>),</span><br><span class="line">            bottomSlice = <span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</span><br><span class="line"></span><br><span class="line">    bottomSlice.innerHTML = topSlice.innerHTML = <span class="string">'Cheese'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Inserting the top slice:</span></span><br><span class="line">    <span class="comment">// Take the parent of the beef (that's the sandwich) and use insertBefore on it.</span></span><br><span class="line">    <span class="comment">// 第一个参数是我们想插入的元素</span></span><br><span class="line">    <span class="comment">// 第二个参数是我们想在那个元素之前插入</span></span><br><span class="line"></span><br><span class="line">    beef.parentNode.insertBefore(topSlice, beef);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The bottom slice:</span></span><br><span class="line">    <span class="comment">// 这里我们可以使用一个小花招</span></span><br><span class="line">    <span class="comment">// 我们可以使用想要的元素后面的元素作为 insertBefore 的第二个参数</span></span><br><span class="line">    <span class="comment">// 这样我们就可以在我们想要的元素之后插入</span></span><br><span class="line"></span><br><span class="line">    beef.parentNode.insertBefore(bottomSlice, beef.nextSibling);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> removePickles = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 现在我们想删除一些元素</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> pickles = <span class="built_in">document</span>.querySelector(<span class="string">"#pickles"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pickles) &#123;</span><br><span class="line">        pickles.parentNode.removeChild(pickles);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Delicious!</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.querySelectorAll(<span class="string">"button"</span>);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">0</span>].addEventListener(<span class="string">'click'</span>, addFries);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">1</span>].addEventListener(<span class="string">'click'</span>, addCheese);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">2</span>].addEventListener(<span class="string">'click'</span>, removePickles);</span><br></pre></td></tr></table></figure></p>
+<h3 id="遍历_DOM_tree">遍历 DOM tree</h3><p>作为一个真正的javascript忍者，必须知道DOM tree中隐藏着很多东西。和jQuery相比， 原生的API只提供了有限的功能选取父级和兄弟节点。然而，我们仍然可以做到遍历DOM tree。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> snakes = <span class="built_in">document</span>.querySelector(<span class="string">'#snakes'</span>),</span><br><span class="line">    birds = <span class="built_in">document</span>.querySelector(<span class="string">'#birds'</span>);</span><br><span class="line"></span><br><span class="line">snakes.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 我们可以使用parentNode在DOM树中访问父元素。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> parent = e.target.parentNode;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Parent: "</span> + parent.id);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里可以调用 .children 来获取所有的子元素</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Children: "</span>);</span><br><span class="line">    <span class="keyword">var</span> children = e.target.children;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里返回一个包含所有子元素的DOM集合。我们可以利用它来操作。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; children.length; i++) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">console</span>.log(children[i].textContent);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">birds.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 访问最近的兄弟节点</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> previous = e.target.previousElementSibling;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (previous) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Previous sibling: "</span> + previous.textContent);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> next = e.target.nextElementSibling;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (next) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Next sibling: "</span> + next.textContent);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 但是获取一个节点的所有兄弟节点要复杂一点</span></span><br><span class="line">    <span class="comment">// 我们获取父元素的所有子元素，然后排除原始元素</span></span><br><span class="line">    <span class="comment">// 下面是成功的使用filter 来获取所有的兄弟节点</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"All siblings: "</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Array</span>.prototype.filter.call(e.target.parentNode.children, <span class="function"><span class="keyword">function</span> <span class="params">(child)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (child !== e.target) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(child.textContent);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="遍历数组">遍历数组</h3><p>ES5提供了很多新的API来迭代数组。 现在我们可以使用原生的 <code>forEach()</code> 和 <code>map()</code>来代替 <code>$.each()</code> 和 <code>$.map()</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ninjaTurtles = [<span class="string">"Donatello"</span>, <span class="string">"Leonardo"</span>, <span class="string">"Michelangelo"</span>, <span class="string">"Raphael"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// forEach 可以自动勉励一个数组</span></span><br><span class="line"></span><br><span class="line">ninjaTurtles.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(entry)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(entry);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// map方法对数组的每一个元素调用函数并返回一个包含所有结果的新数组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> lovesPizza = ninjaTurtles.map(<span class="function"><span class="keyword">function</span> <span class="params">(entry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> entry.concat(<span class="string">" loves pizza!"</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(lovesPizza);</span><br></pre></td></tr></table></figure></p>
+<h3 id="动画">动画</h3><p>jQuery的动画是非常优秀的，如果你的网站中需要很多的动画效果，你可以坚持使用jQuery。由于css3的奇迹，在一些简单的情况下你使用<a href="http://daneden.github.io/animate.css/" target="_blank" rel="external">Animate.css</a>，通过添加和删除class来实现动画效果。</p>
+<h3 id="Ajax">Ajax</h3><p>Ajax是在跨浏览时是一个复杂的技术，好消息是现在我们可以使用相同的代码来实现。但是它需要频繁的实例化发送Ajax请求的XMLhttpRequest对象，因此我们最好还是使用一个库来管理它。但是仅仅因为这一点不必使用 <code>jQuery</code>，有很多小型的库来实现这些，下面是一个直接构建Ajax请求的例子:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一个简单的例子在控制台记录 URL(html文件)。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是一个很乏味的任务去手动的发一个get请求</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> request = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">request.open(<span class="string">'GET'</span>, <span class="string">'http://tutorialzine.com/misc/files/my_url.html'</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">request.onload = <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (request.readyState === <span class="number">4</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 验证请求成功</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (request.status === <span class="number">200</span>) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(request.responseText);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(request.statusText);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 捕获错误</span></span><br><span class="line"></span><br><span class="line">request.onerror = <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(request.statusText);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">request.send(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用一个小型的库, 像 Reqwest, 可以让你的工作更简单.</span></span><br><span class="line"></span><br><span class="line">reqwest(&#123;</span><br><span class="line">    url: <span class="string">'http://tutorialzine.com/misc/files/my_url.html'</span>,</span><br><span class="line">    method: <span class="string">'get'</span>,</span><br><span class="line">    error: <span class="function"><span class="keyword">function</span> <span class="params">(err)</span> </span>&#123;</span><br><span class="line">    &#125;,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> <span class="params">(resp)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ittce.github.io/blog/2015/05/13/writeJavascriptWithoutJQuery/" data-title="write javascript without jQuery | ittce blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/blog/2015/05/08/arrowFunction/"  title="ES6 =&gt;的功能 语法 和 词法作用域">
+ <strong>下一篇：</strong><br/> 
+ <span>ES6 =&gt;的功能 语法 和 词法作用域
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#监听DOM_ready"><span class="toc-number">1.</span> <span class="toc-text">监听DOM ready</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择DOM节点"><span class="toc-number">2.</span> <span class="toc-text">选择DOM节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加和移除事件监听"><span class="toc-number">3.</span> <span class="toc-text">添加和移除事件监听</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作类名_和_属性"><span class="toc-number">4.</span> <span class="toc-text">操作类名 和 属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取和设置节点内容"><span class="toc-number">5.</span> <span class="toc-text">获取和设置节点内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插入和删除元素"><span class="toc-number">6.</span> <span class="toc-text">插入和删除元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历_DOM_tree"><span class="toc-number">7.</span> <span class="toc-text">遍历 DOM tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历数组"><span class="toc-number">8.</span> <span class="toc-text">遍历数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动画"><span class="toc-number">9.</span> <span class="toc-text">动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ajax"><span class="toc-number">10.</span> <span class="toc-text">Ajax</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/blog/about" target="_blank" title="ittce">ittce</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/blog/js/jquery-2.0.3.min.js"></script>
+<script src="/blog/js/jquery.imagesloaded.min.js"></script>
+<script src="/blog/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/blog/img/scrollup.png"/></a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

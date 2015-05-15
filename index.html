@@ -53,11 +53,11 @@
 				<ul>
 					<ul>
 					 
-						<li><a href="/blog/">Home</a></li>
+						<li><a href="/blog/">首页</a></li>
 					
-						<li><a href="/blog/archives">Archives</a></li>
+						<li><a href="/blog/archives">文章列表</a></li>
 					
-						<li><a href="/blog/about">About</a></li>
+						<li><a href="/blog/about">关于我</a></li>
 					
 					<li>
  					
@@ -75,549 +75,148 @@
     <div id="container">
       <div id="main">
 
-   
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/blog/2015/05/13/writeJavascriptWithoutJQuery/" title="write javascript without jQuery" itemprop="url">
+  
+    <h1 itemprop="name">write javascript without jQuery</h1>
     
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
+     
+           <p itemprop="description" >原文地址前面的废话不想翻译了，直接上干货吧。在浏览器日益发展的今天你可能并不需要jQuery了。这里有几个方法帮助你离开jQuery写javascirpt
+监听DOM ready当你写jQuery的时候第一件事情，就是调用 $(document).ready() 来知道DOM什么</p>
+        
     
-      <a href="/blog/2015/05/13/writeJavascriptWithoutJQuery/" title="write javascript without jQuery" itemprop="url">write javascript without jQuery</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/blog/about" title="ittce" target="_blank" itemprop="author">ittce</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-13T12:12:07.000Z" itemprop="datePublished"> 發表於 2015-05-13</time>
+    <time datetime="2015-05-13T12:12:07.000Z" itemprop="datePublished">2015-05-13</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/blog/2015/05/08/arrowFunction/" title="ES6 =&gt;的功能 语法 和 词法作用域" itemprop="url">
+  
+    <h1 itemprop="name">ES6 =&gt;的功能 语法 和 词法作用域</h1>
     
-  </p>
-</header>
-    <div class="article-content">
+     
+           <p itemprop="description" >原文地址</p>
         
-        <p><a href="http://tutorialzine.com/2014/06/10-tips-for-writing-javascript-without-jquery/" target="_blank" rel="external">原文地址</a><br>前面的废话不想翻译了，直接上干货吧。在浏览器日益发展的今天你可能并不需要jQuery了。这里有几个方法帮助你离开jQuery写javascirpt</p>
-<h3 id="监听DOM_ready">监听DOM ready</h3><p>当你写jQuery的时候第一件事情，就是调用 <code>$(document).ready()</code> 来知道DOM什么时候ready。离开jQUery，我们有 <code>DOMContentLoaded</code> 事件。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log( <span class="string">'hi, I am ittce!'</span> );</span><br><span class="line">&#125;, <span class="literal">false</span> )</span><br></pre></td></tr></table></figure></p>
-<h3 id="选择DOM节点">选择DOM节点</h3><p>之前我们使用原生的javascript只能通过 id, tagName,  class来获取DOM节点。 但是现在浏览器实现了 <code>querySelector</code> &amp;&amp; <code>querySelectorAll</code> 。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lochNess = <span class="built_in">document</span>.querySelector(<span class="string">'.lochNess'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> scary = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.monsters'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; scary.length; i++ )&#123;</span><br><span class="line">	<span class="built_in">console</span>.log( scary[i].innerHTML );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//但是我觉得封装一下更便于使用 这是选取第一个匹配的元素</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$</span><span class="params">( context, expr )</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">typeof</span> expr === <span class="string">'string'</span> ? ( context || <span class="built_in">document</span> ).querySelector( expr ) : expr || <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这个是返回所有在context 范围内匹配的元素的一个数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$$</span><span class="params">( context, expr )</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> [].slice.call( ( context || <span class="built_in">document</span> ).querySelectorAll( expr ) );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="添加和移除事件监听">添加和移除事件监听</h3><p>添加事件监听是创建web应用非常重要的一部分。以前IE和标准浏览器使用两个不同的API去添加事件监听。 但是今天我们只需要使用<code>addEventListener</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">var</span> btn = <span class="built_in">document</span>.querySelectorAll(<span class="string">"button"</span>),</span><br><span class="line">    list = <span class="built_in">document</span>.querySelector(<span class="string">"ul"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们调用addEventListenter 方法在我们期望的事件目标上( 这里是一个按钮 ).</span></span><br><span class="line"><span class="comment">// 这将在响应点击事件的节点上开启一个监听器。</span></span><br><span class="line"></span><br><span class="line">btn[<span class="number">0</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 当按钮被点击之后我们期望对我们的列表启动缩放。</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">//因此我们在列表上添加一个事件监听</span></span><br><span class="line">	<span class="comment">// 当鼠标划过它, enlarge函数将被调用。</span></span><br><span class="line">    list.addEventListener(<span class="string">"mouseover"</span>, enlarge);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭缩放我们可以简单的使用 removeEventListener</span></span><br><span class="line"></span><br><span class="line">btn[<span class="number">1</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 删除事件监听的时候不能使用匿名函数, 因此要为函数命名</span></span><br><span class="line">    list.removeEventListener(<span class="string">"mouseover"</span>, enlarge);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建我们的 enlarge 函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> enlarge = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 添加类名 zoomed 到这个无序列表</span></span><br><span class="line"></span><br><span class="line">    list.classList.add(<span class="string">"zoomed"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// When the cursor leaves the list return to normal size by removing the class.</span></span><br><span class="line">	<span class="comment">// 当鼠标离开时, 删除 类名 来让 列表返回默认状态</span></span><br><span class="line"></span><br><span class="line">    list.addEventListener(<span class="string">"mouseout"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        list.classList.remove(<span class="string">"zoomed"</span>)</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在我们希望点击的时候 给他们的上色</span></span><br><span class="line"><span class="comment">// 当点击事件触发时, 我们希望给被点击的原色上色。</span></span><br><span class="line"><span class="comment">// 由于事件委托可以可以利用父节点来操作真正被点击的节点</span></span><br><span class="line"><span class="comment">// 这样我们可以不用给每个li添加事件监听</span></span><br><span class="line"></span><br><span class="line">list.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Make the coloring happen only to the clicked element by taking the target of the event.</span></span><br><span class="line">	<span class="comment">// 让仅有的那个被点击的元素上色</span></span><br><span class="line">    e.target.classList.add(<span class="string">'green'</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h3 id="操作类名_和_属性">操作类名 和 属性</h3><p>在一个元素上利用jQuery操作类名是非常简单的。 现在非常感谢 <code>classList</code> 特性，我们可以利用原生来方便的操作类名。如果你希望操作属性， 我们可以使用 <code>setAttribute</code>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">var</span> btn = <span class="built_in">document</span>.querySelectorAll(<span class="string">"button"</span>),</span><br><span class="line">    div = <span class="built_in">document</span>.querySelector(<span class="string">"#myDiv"</span>);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">0</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取属性很简单。</span></span><br><span class="line">    <span class="built_in">console</span>.log(div.id);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Element.classList 存储所有的这个节点的所有类名。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> classes = div.classList;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">btn[<span class="number">1</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(classes);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">2</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 它支持 添加和删除类名。</span></span><br><span class="line">    classes.add(<span class="string">"red"</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">3</span>].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 你也可以切换一个class</span></span><br><span class="line">    classes.toggle(<span class="string">"hidden"</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h3 id="获取和设置节点内容">获取和设置节点内容</h3><p>jQuery有 <code>text()</code> 和 <code>html()</code> 方法。 这里我们可以使用 <code>textContent</code> &amp;&amp; <code>innerHTML</code>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myText = <span class="built_in">document</span>.querySelector(<span class="string">"#myParagraph"</span>),</span><br><span class="line">    btn = <span class="built_in">document</span>.querySelectorAll(<span class="string">"button"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们可以很简单的获取 一个几点和它后代的 文本内容</span></span><br><span class="line"><span class="keyword">var</span> myContent = myText.textContent;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"textContent:  "</span> + myContent);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 textContent 去弹出一个元素的文本</span></span><br><span class="line"><span class="comment">// 删除掉旧的文本并把它替换成新的</span></span><br><span class="line"></span><br><span class="line">btn[<span class="number">0</span>].addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    myText.textContent = <span class="string">" Koalas are the best animals "</span>;</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果我们希望获取一个节点所有的HTML代码，我们可以使用`innerHTML`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myHtml = myText.innerHTML;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"innerHTML:  "</span> + myHtml);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用新的内容去更改 html</span></span><br><span class="line"><span class="comment">// 当然我们可以不用局限在这一次的文本里</span></span><br><span class="line"></span><br><span class="line">btn[<span class="number">1</span>].addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    myText.innerHTML = <span class="string">"&lt;button&gt; Penguins are the best animals &lt;/button&gt;"</span>;</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h3 id="插入和删除元素">插入和删除元素</h3><p>使用jQuery 可以让们添加和删除 节点更简单。 使用原生我们也可以做到像你想的那个添加， 删除和替换节点。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lunch = <span class="built_in">document</span>.querySelector(<span class="string">"#lunch"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们想给它添加元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> addFries = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 首先我们创建新的元素并塞入内容</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fries = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    fries.innerHTML = <span class="string">'&lt;li&gt;&lt;h4&gt; Fries &lt;/h4&gt;&lt;/li&gt;'</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 完成之后我们可以使用 appendChild 去插入它</span></span><br><span class="line">    <span class="comment">// 这让让我们新创建的元素插入在父元素的最后</span></span><br><span class="line"></span><br><span class="line">    lunch.appendChild(fries);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在我们想在父级元素内部两个子元素之间插入元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> addCheese = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> beef = <span class="built_in">document</span>.querySelector(<span class="string">"#Beef"</span>),</span><br><span class="line"></span><br><span class="line">            topSlice = <span class="built_in">document</span>.createElement(<span class="string">"li"</span>),</span><br><span class="line">            bottomSlice = <span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</span><br><span class="line"></span><br><span class="line">    bottomSlice.innerHTML = topSlice.innerHTML = <span class="string">'Cheese'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Inserting the top slice:</span></span><br><span class="line">    <span class="comment">// Take the parent of the beef (that's the sandwich) and use insertBefore on it.</span></span><br><span class="line">    <span class="comment">// 第一个参数是我们想插入的元素</span></span><br><span class="line">    <span class="comment">// 第二个参数是我们想在那个元素之前插入</span></span><br><span class="line"></span><br><span class="line">    beef.parentNode.insertBefore(topSlice, beef);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The bottom slice:</span></span><br><span class="line">    <span class="comment">// 这里我们可以使用一个小花招</span></span><br><span class="line">    <span class="comment">// 我们可以使用想要的元素后面的元素作为 insertBefore 的第二个参数</span></span><br><span class="line">    <span class="comment">// 这样我们就可以在我们想要的元素之后插入</span></span><br><span class="line"></span><br><span class="line">    beef.parentNode.insertBefore(bottomSlice, beef.nextSibling);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> removePickles = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 现在我们想删除一些元素</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> pickles = <span class="built_in">document</span>.querySelector(<span class="string">"#pickles"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pickles) &#123;</span><br><span class="line">        pickles.parentNode.removeChild(pickles);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Delicious!</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.querySelectorAll(<span class="string">"button"</span>);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">0</span>].addEventListener(<span class="string">'click'</span>, addFries);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">1</span>].addEventListener(<span class="string">'click'</span>, addCheese);</span><br><span class="line"></span><br><span class="line">btn[<span class="number">2</span>].addEventListener(<span class="string">'click'</span>, removePickles);</span><br></pre></td></tr></table></figure></p>
-<h3 id="遍历_DOM_tree">遍历 DOM tree</h3><p>作为一个真正的javascript忍者，必须知道DOM tree中隐藏着很多东西。和jQuery相比， 原生的API只提供了有限的功能选取父级和兄弟节点。然而，我们仍然可以做到遍历DOM tree。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> snakes = <span class="built_in">document</span>.querySelector(<span class="string">'#snakes'</span>),</span><br><span class="line">    birds = <span class="built_in">document</span>.querySelector(<span class="string">'#birds'</span>);</span><br><span class="line"></span><br><span class="line">snakes.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 我们可以使用parentNode在DOM树中访问父元素。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> parent = e.target.parentNode;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Parent: "</span> + parent.id);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里可以调用 .children 来获取所有的子元素</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Children: "</span>);</span><br><span class="line">    <span class="keyword">var</span> children = e.target.children;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里返回一个包含所有子元素的DOM集合。我们可以利用它来操作。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; children.length; i++) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">console</span>.log(children[i].textContent);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">birds.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 访问最近的兄弟节点</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> previous = e.target.previousElementSibling;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (previous) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Previous sibling: "</span> + previous.textContent);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> next = e.target.nextElementSibling;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (next) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Next sibling: "</span> + next.textContent);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 但是获取一个节点的所有兄弟节点要复杂一点</span></span><br><span class="line">    <span class="comment">// 我们获取父元素的所有子元素，然后排除原始元素</span></span><br><span class="line">    <span class="comment">// 下面是成功的使用filter 来获取所有的兄弟节点</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"All siblings: "</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Array</span>.prototype.filter.call(e.target.parentNode.children, <span class="function"><span class="keyword">function</span> <span class="params">(child)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (child !== e.target) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(child.textContent);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h3 id="遍历数组">遍历数组</h3><p>ES5提供了很多新的API来迭代数组。 现在我们可以使用原生的 <code>forEach()</code> 和 <code>map()</code>来代替 <code>$.each()</code> 和 <code>$.map()</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ninjaTurtles = [<span class="string">"Donatello"</span>, <span class="string">"Leonardo"</span>, <span class="string">"Michelangelo"</span>, <span class="string">"Raphael"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// forEach 可以自动勉励一个数组</span></span><br><span class="line"></span><br><span class="line">ninjaTurtles.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(entry)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(entry);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// map方法对数组的每一个元素调用函数并返回一个包含所有结果的新数组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> lovesPizza = ninjaTurtles.map(<span class="function"><span class="keyword">function</span> <span class="params">(entry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> entry.concat(<span class="string">" loves pizza!"</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(lovesPizza);</span><br></pre></td></tr></table></figure></p>
-<h3 id="动画">动画</h3><p>jQuery的动画是非常优秀的，如果你的网站中需要很多的动画效果，你可以坚持使用jQuery。由于css3的奇迹，在一些简单的情况下你使用<a href="http://daneden.github.io/animate.css/" target="_blank" rel="external">Animate.css</a>，通过添加和删除class来实现动画效果。</p>
-<h3 id="Ajax">Ajax</h3><p>Ajax是在跨浏览时是一个复杂的技术，好消息是现在我们可以使用相同的代码来实现。但是它需要频繁的实例化发送Ajax请求的XMLhttpRequest对象，因此我们最好还是使用一个库来管理它。但是仅仅因为这一点不必使用 <code>jQuery</code>，有很多小型的库来实现这些，下面是一个直接构建Ajax请求的例子:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一个简单的例子在控制台记录 URL(html文件)。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是一个很乏味的任务去手动的发一个get请求</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> request = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">request.open(<span class="string">'GET'</span>, <span class="string">'http://tutorialzine.com/misc/files/my_url.html'</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">request.onload = <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (request.readyState === <span class="number">4</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 验证请求成功</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (request.status === <span class="number">200</span>) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(request.responseText);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(request.statusText);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 捕获错误</span></span><br><span class="line"></span><br><span class="line">request.onerror = <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(request.statusText);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">request.send(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用一个小型的库, 像 Reqwest, 可以让你的工作更简单.</span></span><br><span class="line"></span><br><span class="line">reqwest(&#123;</span><br><span class="line">    url: <span class="string">'http://tutorialzine.com/misc/files/my_url.html'</span>,</span><br><span class="line">    method: <span class="string">'get'</span>,</span><br><span class="line">    error: <span class="function"><span class="keyword">function</span> <span class="params">(err)</span> </span>&#123;</span><br><span class="line">    &#125;,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> <span class="params">(resp)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
     
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
+    <time datetime="2015-05-08T07:01:02.000Z" itemprop="datePublished">2015-05-08</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/blog/2015/05/08/writeAjaxLib/" title="[译]写一个独立的 Ajax/XHR 微型库" itemprop="url">
+  
+    <h1 itemprop="name">[译]写一个独立的 Ajax/XHR 微型库</h1>
     
-      <a href="/blog/2015/05/08/arrowFunction/" title="ES6 =&gt;的功能 语法 和 词法作用域" itemprop="url">ES6 =&gt;的功能 语法 和 词法作用域</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/blog/about" title="ittce" target="_blank" itemprop="author">ittce</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-08T07:01:02.000Z" itemprop="datePublished"> 發表於 2015-05-08</time>
+     
+           <p itemprop="description" >原文地址无论你的工作是做web站点还是应用, 你一定面临通过ajax来获取一段文档的内容,或是一个json数据.你也使用一些库来掩饰XHR内部乱七八糟的实现. 有很多的库和一些XHR模块来帮助你使ajax变的简单. 工作中我喜欢Angular中$http方法对XHR的实现.123</p>
+        
     
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><a href="http://toddmotto.com/es6-arrow-functions-syntaxes-and-lexical-scoping/" target="_blank" rel="external">原文地址</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <time datetime="2015-05-08T01:59:52.000Z" itemprop="datePublished">2015-05-08</time>
+  </a>
+</section>
 
 
 
 
 
 
-   
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/blog/2015/05/07/closeProblem/" title="刷题宝典" itemprop="url">
+  
+    <h1 itemprop="name">刷题宝典</h1>
     
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
+     
+           <p itemprop="description" >Question：There is a secret message in the first six sentences of this kata description. Have you ever felt like there was something more bei</p>
+        
     
-      <a href="/blog/2015/05/08/writeAjaxLib/" title="[译]写一个独立的 Ajax/XHR 微型库" itemprop="url">[译]写一个独立的 Ajax/XHR 微型库</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/blog/about" title="ittce" target="_blank" itemprop="author">ittce</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-08T01:59:52.000Z" itemprop="datePublished"> 發表於 2015-05-08</time>
+    <time datetime="2015-05-07T06:04:24.000Z" itemprop="datePublished">2015-05-07</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/blog/2015/05/07/orderLine/" title="命令行使用笔记" itemprop="url">
+  
+    <h1 itemprop="name">命令行使用笔记</h1>
     
-  </p>
-</header>
-    <div class="article-content">
+     
+           <p itemprop="description" >cmd &amp;amp; power shell1234567mkdir hello # 创建以 hello为名字的文件夹cd     hello # 进入刚创建的hello文件夹cd    ..  # 返回上一级cd ~ 返回根目录rm hello  #删除hello文件夹 可以用r</p>
         
-        <p><a href="http://toddmotto.com/writing-a-standalone-ajax-xhr-javascript-micro-library/" target="_blank" rel="external">原文地址</a><br>无论你的工作是做web站点还是应用, 你一定面临通过ajax来获取一段文档的内容,或是一个json数据.你也使用一些库来掩饰XHR内部乱七八糟的实现. 有很多的库和一些XHR模块来帮助你使ajax变的简单. 工作中我喜欢Angular中$http方法对XHR的实现.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$http.get(<span class="string">'/endpoint'</span>)</span><br><span class="line">  .success(<span class="function"><span class="keyword">function</span> <span class="params">( data )</span> </span>&#123;&#125; )</span><br><span class="line">  .error( <span class="function"><span class="keyword">function</span> <span class="params">( data )</span> </span>&#123;&#125; )</span><br></pre></td></tr></table></figure></p>
-<p>Angular通过好记的 get() 方法,使XHR变的简单, 美好, 容易阅读. 它也有别的方法像 .post(), .put, .delete()去做大多数你需要的工作. 我想我可以通过语法糖的方法写一个跨浏览的XHR模块, 让我带你创建Atomic.js, 下面是结果.<br><a href="https://github.com/toddmotto/atomic/archive/master.zip" target="_blank" rel="external">Download</a><br><a href="https://github.com/toddmotto/atomic" target="_blank" rel="external">Fork on github</a></p>
-<h3 id="XMLHttpRequest_&amp;&amp;_ActiveXObject">XMLHttpRequest &amp;&amp; ActiveXObject</h3><p>有趣的是它们都是微软先提出的, ajax技术的第一次实现是通过ActiveXObjct. 几年后通过XMLHttpRequset形成标准, 现在我们依然通过XHR来和server通信. 在网页中你经常可以看到这样的脚本来实现跨浏览器的ajax :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getXHR</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">window</span>.XMLHttpRequest ) &#123;</span><br><span class="line">    <span class="comment">// Chrome, Firefox, IE7+, Opera, Safari</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//IE6</span></span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="string">'MSXML2.XMLHTTP.6.0'</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span>( e ) &#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="string">'MSXML2.XMLHTTP.3.0'</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span>( e )&#123;</span><br><span class="line">      alert(<span class="string">'This browser is not AJAX enabled.'</span>); </span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>首先, 如果你没有接触过原生的javascript, 你可能想知道在所有库和包装之下, 究竟发生了什么. 最开始像这样( 注释版本 ) :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span><span class="params">(</span><br><span class="line">  a <span class="comment">//占位符, 类似于在函数内部var a;</span></span><br><span class="line">  )</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(                    <span class="comment">// 循环所有的a </span></span><br><span class="line">      a = <span class="number">3</span>;                <span class="comment">// 从 3</span></span><br><span class="line">      a--;                  <span class="comment">// 到 0,</span></span><br><span class="line">    ) <span class="keyword">try</span> &#123;                 <span class="comment">// 尝试</span></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span>(           <span class="comment">// 返回一个实例</span></span><br><span class="line">        <span class="keyword">this</span>.XMLHttpRequest <span class="comment">// XMLHttpRequest (w3c) 标准</span></span><br><span class="line">        ||                  <span class="comment">// 或</span></span><br><span class="line">        ActiveXObject       <span class="comment">// ActiveXObject (MS) IE6</span></span><br><span class="line">      )([                   <span class="comment">// 反应</span></span><br><span class="line">        <span class="string">"Msxml2"</span>,           <span class="comment">// 这个</span></span><br><span class="line">        <span class="string">"Msxml3"</span>,           <span class="comment">// various 各个</span></span><br><span class="line">        <span class="string">"Microsoft"</span>][a] +   <span class="comment">// MS flavors 微软的接口</span></span><br><span class="line">        <span class="string">".XMLHTTP"</span>          <span class="comment">// and appropriate suffix, 适当的后缀</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">catch</span>(e)&#123;&#125;              <span class="comment">// 忽略失败</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>重构结束时变成了一个很小的版本 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span>(<span class="keyword">this</span>.XMLHttpRequest || ActiveXObject)(<span class="string">'MSXML2.XMLHTTP.3.0'</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;&#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>我不知道你的感觉,但我觉得这像一个魔术,我喜欢它. 这使得我们在任何浏览器中都可以基于构造函数调用正确的ajax.我们不需要像jed 那样实施这么复杂的循环, 我们可以用上面的参数来走一条新路.</p>
-<p>因此, 我使用这个伟大的实现来作为 <a href="https://github.com/toddmotto/atomic" target="_blank" rel="external">atomic.js</a> 的基础.</p>
-<p>以上所有的的操作 atomic.js 都可以实现, 在不和server链接的情况下, 并且比XHR的封装更轻量. 下一步我们继续来探究, 使用一个简化的 get 例子来探究 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get XHR</span></span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">//函数为了每次的 onreadystatechange</span></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//通过'get'来建立连接</span></span><br><span class="line">xhr.open( <span class="string">'GET'</span>, <span class="string">'/endpoint'</span>, <span class="literal">true</span> );</span><br><span class="line"><span class="comment">// 发送它</span></span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure></p>
-<p>在 onreadystatechange 里面, 我们需要筛选出我们需要的状态.  这是一个状态的列表和它们的意思 :<br>0 : 请求未初始化; 1 : 服务器简历连接; 2 : 收到请求; 3 : 处理请求; 4 : 请求完成并响应就绪</p>
-<p>我们需要他们都是就绪, 因此我们监听 4 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( xhr.readyState === <span class="number">4</span> ) &#123;</span><br><span class="line">    <span class="comment">//请求完成并响应就绪</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们希望接下来获取一个200的状态, 它表示成功. 也会有可能错误例如 : 服务器丢包, 没通过认证等; 但是为了简单一点, 我们假设所有都是对的:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( xhr.readyState === <span class="number">4</span> ) &#123;</span><br><span class="line">    <span class="comment">//请求完成并响应就绪</span></span><br><span class="line">    <span class="keyword">if</span> ( xhr.state === <span class="number">200</span> ) &#123;</span><br><span class="line">      <span class="comment">// 所有都是对的</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果它失败了怎么办呢, 我们只需要加一个 else 的函数就可以了 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="comment">// request finished and response is ready</span></span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// all is well!</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// things are not well :(</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>现在所有都就绪了 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// get XHR</span></span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest(); </span><br><span class="line"></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="comment">// request finished and response is ready</span></span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// all is well!</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// things are not well :(</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// open the connection and make the `GET`</span></span><br><span class="line">xhr.open(<span class="string">'GET'</span>, <span class="string">'/endpoint'</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// send it!</span></span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure></p>
-<p>它们为我们使用XHR打下了基础.</p>
-<p>如果要改写它的话非常麻烦, 这就是为什么我们要将它们封装成一个可以重复利用的模块. 因为喜欢 Angular的语法, 我想过这样做 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">atomic.get(<span class="string">'/endpoint'</span>)</span><br><span class="line">.success(<span class="function"><span class="keyword">function</span> <span class="params">(data)</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;)</span><br><span class="line">.error(<span class="function"><span class="keyword">function</span> <span class="params">(data)</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>看起来非常眼熟 ? </p>
-<p>以上面的工作为基础, 我创建了一些链接的方法为模块, 增加自动解析JSON, 结束了当前的版本( atomic.js V1.0.0 ) :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">( <span class="function"><span class="keyword">function</span> <span class="params">( root, factory )</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd ) &#123;</span><br><span class="line">    define( factory );</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="keyword">typeof</span> exports === <span class="string">'object'</span> )&#123;</span><br><span class="line">    <span class="built_in">module</span>.exports = factory;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    root.atomic = factory( root );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)( <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> <span class="params">( root )</span></span>&#123;</span><br><span class="line"><span class="pi"> 'use strict'</span>;</span><br><span class="line"> <span class="keyword">var</span> exports = &#123;&#125;;</span><br><span class="line"> <span class="keyword">var</span> parse = <span class="function"><span class="keyword">function</span> <span class="params">( req )</span> </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> result;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">     result = <span class="built_in">JSON</span>.parse( req.responseText );</span><br><span class="line">   &#125; <span class="keyword">catch</span> ( e ) &#123;</span><br><span class="line">     result = req.responseText;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> [ result, req ];</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">var</span> xhr = <span class="function"><span class="keyword">function</span> <span class="params">( type, url, data )</span> </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> methods = &#123;</span><br><span class="line">     success : <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;&#125;,</span><br><span class="line">     error   : <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">   &#125;;</span><br><span class="line">   <span class="keyword">var</span> XHR = root.XMLHttpRequset || ActiveXObject;</span><br><span class="line">   <span class="keyword">var</span> request = <span class="keyword">new</span> XHR(<span class="string">'MSXML2.XMLHTTP.3.0'</span>);</span><br><span class="line">   request.open( type, url, <span class="literal">true</span> );</span><br><span class="line">   request.setRequestHeader( <span class="string">'Content-type'</span>, <span class="string">'application/x-www-form-urlencoded'</span> );</span><br><span class="line">   request.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> ( request.readyState === <span class="number">4</span> ) &#123;</span><br><span class="line">       <span class="keyword">if</span> ( request.state === <span class="number">200</span> ) &#123;</span><br><span class="line">         methods.success.apply( methods, parse( request ) );</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         methods.error.apply( methods, parse( request ) );</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;;</span><br><span class="line">   request.send( data );</span><br><span class="line">   <span class="keyword">return</span> &#123;</span><br><span class="line">     success : <span class="function"><span class="keyword">function</span> <span class="params">( callback )</span> </span>&#123;</span><br><span class="line">       methods.success = callback;</span><br><span class="line">       <span class="keyword">return</span> methods;</span><br><span class="line">     &#125;,</span><br><span class="line">     error : <span class="function"><span class="keyword">function</span> <span class="params">( callback )</span> </span>&#123;</span><br><span class="line">       methods.error = callback;</span><br><span class="line">       <span class="keyword">return</span> methods;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> exports[<span class="string">'get'</span>] = <span class="function"><span class="keyword">function</span> <span class="params">( src )</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> xhr( <span class="string">'GET'</span>, src );</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> exports[<span class="string">'put'</span>] = <span class="function"><span class="keyword">function</span> <span class="params">( url, data )</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> xhr( <span class="string">'PUT'</span>, url, data );</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> exports[<span class="string">'post'</span>] = <span class="function"><span class="keyword">function</span> <span class="params">( url, data )</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> xhr( <span class="string">'POST'</span>, url, data );</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> exports[<span class="string">'delete'</span>] = <span class="function"><span class="keyword">function</span> <span class="params">( url )</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> xhr( <span class="string">'DELETE'</span>, url );</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> exports;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>使用atomic.js像很容易, 就像使用其它库一样, 而且它拥有一个非常可读的语法, 1kb的大小, 以及远远超出它本身1kb大小的功能. </p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
     
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
+    <time datetime="2015-05-07T05:59:17.000Z" itemprop="datePublished">2015-05-07</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/blog/2015/05/07/useVSCode/" title="使用Visual Studio code" itemprop="url">
+  
+    <h1 itemprop="name">使用Visual Studio code</h1>
     
-      <a href="/blog/2015/05/07/closeProblem/" title="刷题宝典" itemprop="url">刷题宝典</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/blog/about" title="ittce" target="_blank" itemprop="author">ittce</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-07T06:04:24.000Z" itemprop="datePublished"> 發表於 2015-05-07</time>
+     
+           <p itemprop="description" >快捷键
+ctrl+b 打开或关闭侧边栏
+ctrl+\ 打开多个editor
+ctrl+e 快速的通过名字打开一个文件
+右键选择 Reveal in Explorer 打开文件夹
+ctrl+tab 快速打开当前floder下的文件
+alt+← 打开你上次打开的文件
+alet+→ 打</p>
+        
     
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h4 id="Question：">Question：</h4><p>There is a secret message in the first six sentences of this kata description. Have you ever felt like there was something more being said? Was it hard to figure out that unspoken meaning? Never again! Never will a secret go undiscovered. Find all duplicates from our message!</p>
-<p>Your job is to write a function findSecretMessage that will find the secret words of the message and return them in order. The words in the secret message should be ordered in the order in which they are found as a duplicate.</p>
-<p>Example<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'This is a test. this test is fun.'</span> <span class="comment">//-&gt; this test is</span></span><br></pre></td></tr></table></figure></p>
-<p>NOTE: the casing of words should not matter for the purpose of this kata. We are only concerned with word duplication, regardless of upper or lower case letters.</p>
-<h5 id="Anwser：">Anwser：</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//me</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findSecretMessage</span><span class="params">( paragraph )</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> arr = paragraph.toLowerCase().match(<span class="regexp">/(\w+)/g</span>), arr2=[];</span><br><span class="line">	<span class="keyword">var</span>  obj = &#123;&#125;;</span><br><span class="line">	<span class="keyword">while</span>( arr.length )&#123;</span><br><span class="line">		<span class="keyword">var</span> item = arr.shift();</span><br><span class="line">		<span class="keyword">if</span> ( obj[item] &amp;&amp; obj[item] &gt;= <span class="number">2</span> )<span class="keyword">continue</span>;</span><br><span class="line">		obj[item] = obj[item] ? ++obj[item] : <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> ( obj[item] ==<span class="number">2</span> )&#123;</span><br><span class="line">			arr2.push(item);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> arr2.join(<span class="string">' '</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//manito</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findSeretMessage</span><span class="params">( paragraph )</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> paragraph.toLowerCase().split(<span class="regexp">/\W+/</span>).filter( <span class="function"><span class="keyword">function</span><span class="params">( word, i, words )</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> words.indexOf( word, words.indexOf(word)+<span class="number">1</span> ) == i;</span><br><span class="line">	&#125;).join(<span class="string">' '</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Question:">Question:</h4><p>Write a function toWeirdCase (weirdcase in Ruby) that accepts a string, and returns the same string with all even indexed characters in each word upper cased, and all odd indexed characters in each word lower cased. The indexing just explained is zero based, so the zero-ith index is even, therefore that character should be upper cased.</p>
-<p>The passed in string will only consist of alphabetical characters and spaces(‘ ‘). Spaces will only be present if there are multiple words. Words will be separated by a single space(‘ ‘).</p>
-<p>Examples<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">toWeirdCase( <span class="string">"String"</span> );<span class="comment">//=&gt; returns "StRiNg"</span></span><br><span class="line">toWeirdCase( <span class="string">"Weird string case"</span> );<span class="comment">//=&gt; returns "WeIrD StRiNg CaSe"</span></span><br></pre></td></tr></table></figure></p>
-<h5 id="Answer:">Answer:</h5><p>我的答案<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toWeirdCase</span><span class="params">(string)</span></span>&#123;</span><br><span class="line">  string = string.split(<span class="string">' '</span>);</span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; string.length; i++ )&#123;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">var</span> j = <span class="number">0</span>, arr = string[i].split(<span class="string">''</span>); j &lt; arr.length ; j+=<span class="number">2</span> )&#123;</span><br><span class="line">           arr[j]=arr[j].toUpperCase();</span><br><span class="line">        &#125;</span><br><span class="line">        string[i]= arr.join(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> string.join(<span class="string">' '</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>别人的答案<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toWeirdCase</span><span class="params">(string)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> string.split(<span class="string">' '</span>).map(<span class="function"><span class="keyword">function</span><span class="params">(w)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> w.split(<span class="string">''</span>).map(<span class="function"><span class="keyword">function</span><span class="params">(l, i)</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> l[(!(i%<span class="number">2</span>))?<span class="string">'toUpperCase'</span>:<span class="string">'toLowerCase'</span>]()</span><br><span class="line">    &#125;).join(<span class="string">''</span>);</span><br><span class="line">  &#125;).join(<span class="string">' '</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toWeirdCase</span><span class="params">(string)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> string.replace(<span class="regexp">/(\b(\S)*\b)/g</span>, <span class="function"><span class="keyword">function</span><span class="params">(v,i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> v.split(<span class="string">""</span>).map(<span class="function"><span class="keyword">function</span><span class="params">(v, i)</span> </span>&#123; <span class="keyword">return</span> (i%<span class="number">2</span> == <span class="number">0</span>) ? v.toUpperCase(): v&#125;).join(<span class="string">""</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="Question:-1">Question:</h4><p>Write a function isIntArray with the below signature.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIntArray</span><span class="params">(arr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>returns true if every element in an array is an integer. </li>
-<li>returns true if array is empty.</li>
-<li>returns false for every other input.</li>
-</ul>
-<h5 id="Anwser:">Anwser:</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//me</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIntArray</span><span class="params">(arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>( <span class="built_in">Array</span>.isArray(arr) )&#123;</span><br><span class="line">    <span class="keyword">if</span> ( arr.length == <span class="number">0</span>  || arr.every( <span class="function"><span class="keyword">function</span> <span class="params">( item )</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">isNaN</span>(item) ? <span class="literal">false</span> : <span class="keyword">typeof</span> item !== <span class="string">'number'</span> ? <span class="literal">false</span> : <span class="regexp">/^(-|\+)?\d+$/</span>.test(item) ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">    &#125;))&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//other</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIntArray</span><span class="params">(arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.isArray(arr) &amp;&amp; arr.every(<span class="function"><span class="keyword">function</span> <span class="params">(x)</span> </span>&#123; <span class="keyword">return</span> <span class="built_in">Math</span>.floor(x) === x &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIntArray</span><span class="params">(arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> arr?arr.every(<span class="function"><span class="keyword">function</span><span class="params">(n)</span></span>&#123;<span class="keyword">return</span> ~~n === n;&#125;):<span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Question:-2">Question:</h4><p>Given two arrays of strings a1 and a2 return a sorted array in lexicographical order and without duplicates of the strings of a1 which are substrings of strings of a2.</p>
-<p>Example: a1 = [“arp”, “live”, “strong”]</p>
-<p>a2 = [“lively”, “alive”, “harp”, “sharp”, “armstrong”]</p>
-<p>returns [“arp”, “live”, “strong”]</p>
-<p>a1 = [“tarp”, “mice”, “bull”]</p>
-<p>a2 = [“lively”, “alive”, “harp”, “sharp”, “armstrong”]</p>
-<p>returns []</p>
-<p>Note: Arrays are written in “general” notation. See “Your Test Cases” for examples in your language.</p>
-<h5 id="Answer:-1">Answer:</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inArray</span><span class="params">( array1, array2 )</span></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result = [];</span><br><span class="line">  array1.map( <span class="function"><span class="keyword">function</span><span class="params">( v, i )</span></span>&#123;</span><br><span class="line">    array2.join(<span class="string">','</span>).indexOf(v) &gt;= <span class="number">0</span> ? result.push(v) : <span class="literal">false</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//应该使用filter，修改了下</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inArray</span><span class="params">( array1, array2 )</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> array1.filter( <span class="function"><span class="keyword">function</span><span class="params">( v, i )</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array2.join(<span class="string">','</span>).indexOf( v ) &gt;= <span class="number">0</span>;</span><br><span class="line">  &#125;).sort();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Question:-3">Question:</h4><p>There are two lists of different length. The first one consists of keys, the second one consists of values. Write a function createDict(keys, values) that returns a dictionary created from keys and values. If there are not enough values, the rest of keys should have a None (JS null)value. If there not enough keys, just ignore the rest of values.</p>
-<p>Example1:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">keys = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]</span><br><span class="line">values = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">createDict(keys, values) <span class="comment">// returns &#123;'a': 1, 'b': 2, 'c': 3, 'd': null&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>Example2:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">keys = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</span><br><span class="line">values = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">createDict(keys, values) <span class="comment">// returns &#123;'a': 1, 'b': 2, 'c': 3&#125;</span></span><br></pre></td></tr></table></figure></p>
-<h5 id="Answer:-2">Answer:</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//me</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createDict</span><span class="params">( keys, values )</span></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">  keys.map( <span class="function"><span class="keyword">function</span> <span class="params">( v, i )</span> </span>&#123;</span><br><span class="line">    obj[v] = <span class="keyword">typeof</span> values[i] !== <span class="string">'undefined'</span> ? values[i] : <span class="literal">null</span>; </span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//other</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createDict</span><span class="params">( keys, values )</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> keys.reduce( <span class="function"><span class="keyword">function</span> <span class="params">( o, v, i )</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> o[v] = i <span class="keyword">in</span> values ? values[i] : <span class="literal">null</span>,o;</span><br><span class="line">  &#125;,&#123;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Question">Question</h4><p>Write a function that accepts two square matrices (nxn two dimensional arrays), and return the sum of the two. Both matrices being passed into the function will be of size nxn (square), containing only integers.</p>
-<p>How to sum two matrices:<br>Take each cell [n][m] from the first matrix, and add it with the [n][m] cell from the second matrix. This will be cell [n][m] in the solution matrix.</p>
-<p>Visualization:<br>|1 2 3|<br>|3 2 1|<br>|1 1 1|<br>+<br>|2 2 1|<br>|3 2 3|<br>|1 1 3|<br>=<br>|3 4 4|<br>|6 4 4|<br>|2 2 4|</p>
-<p>Example function call:<br>matrixAddition( [ [1, 2, 3], [3, 2, 1,], [1, 1, 1] ], [ [2, 2, 1], [3, 2, 3], [1, 1, 3] ] );<br>returns [ [3, 4, 4], [6, 4, 4], [2, 2, 4] ]</p>
-<h5 id="Anwser_:">Anwser :</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ES5</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">matrixAddition</span><span class="params">( a, b )</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a.map( <span class="function"><span class="keyword">function</span> <span class="params">( item , i )</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a[i].map( <span class="function"><span class="keyword">function</span> <span class="params">( arr, j )</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> arr + b[i][j];</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">matrixAddition</span><span class="params">(a, b)</span></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> c = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">    c[i] = (<span class="keyword">typeof</span> a[i] !== <span class="string">'number'</span>) ? matrixAddition(a[i], b[i]) : a[i] + b[i];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Question:-4">Question:</h4><p>You’ve just recently been hired to calculate scores for a Dart Board game! </p>
-<p>Scoring specifications:<br>0 points - radius above 10<br>5 points - radius between 5 and 10 inclusive<br>10 points - radius less than 5</p>
-<p>If all radiuses are less than 5, award 100 BONUS POINTS!</p>
-<p>Write a function that accepts an array of radiuses (can be integers and/or floats),<br>and returns a total score using the above specification.<br>An empty array should return 0.</p>
-<p>Examples:<br>scoreThrows( [1, 5, 11] ) =&gt; returns 15<br>scoreThrows( [15, 20, 30] ) =&gt; returns 0<br>scoreThrows( [1, 2, 3, 4] ) =&gt; returns 140</p>
-<h5 id="Answer:-3">Answer:</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//me</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scoreThrows</span><span class="params">(radiuses)</span></span>&#123;</span><br><span class="line">  <span class="comment">//Return total number of points</span></span><br><span class="line">  <span class="keyword">if</span> ( radiuses.length == <span class="number">0</span> ) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> result = <span class="number">0</span>;</span><br><span class="line">  radiuses.map( <span class="function"><span class="keyword">function</span> <span class="params">( item )</span> </span>&#123;</span><br><span class="line">	  result += item &gt; <span class="number">10</span> ? <span class="number">0</span> : item &gt;= <span class="number">5</span> ? <span class="number">5</span> : <span class="number">10</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> result == radiuses.length * <span class="number">10</span> ? result + <span class="number">100</span> : result; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//other</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scoreThrows</span><span class="params">(rr, s)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (s=rr.map(<span class="function"><span class="keyword">function</span><span class="params">(r)</span></span>&#123; <span class="keyword">return</span> r&lt;<span class="number">5</span>? <span class="number">10</span>: r&lt;=<span class="number">10</span>? <span class="number">5</span> : <span class="number">0</span> &#125;).reduce(<span class="function"><span class="keyword">function</span><span class="params">(s,v)</span></span>&#123; <span class="keyword">return</span> s+v&#125;,<span class="number">0</span>)), s&amp;&amp;s==<span class="number">10</span>*rr.length? s+<span class="number">100</span>:s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <time datetime="2015-05-07T05:50:56.000Z" itemprop="datePublished">2015-05-07</time>
+  </a>
+</section>
 
 
 
 
 
 
-   
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/blog/2015/05/07/javascripScope/" title="[译]你该知道的javascript作用域 (javascript scope)" itemprop="url">
+  
+    <h1 itemprop="name">[译]你该知道的javascript作用域 (javascript scope)</h1>
     
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
+     
+           <p itemprop="description" >原文地址黑哥版本1黑哥版本2javascript有一些对于初学者甚至是有经验的开发者都难以理解的概念. 这个部分是针对那些听到 : 作用域, 闭包, this, 命名空间, 函数作用域, 函数作用域, 全局作用域, 变量作用域(后续翻译这个词我也没太懂), 公共/私有 作用域 后</p>
+        
     
-      <a href="/blog/2015/05/07/orderLine/" title="命令行使用笔记" itemprop="url">命令行使用笔记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/blog/about" title="ittce" target="_blank" itemprop="author">ittce</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-07T05:59:17.000Z" itemprop="datePublished"> 發表於 2015-05-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="cmd_&amp;_power_shell">cmd &amp; power shell</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir hello <span class="comment"># 创建以 hello为名字的文件夹</span></span><br><span class="line">cd     hello <span class="comment"># 进入刚创建的hello文件夹</span></span><br><span class="line">cd    ..  <span class="comment"># 返回上一级</span></span><br><span class="line">cd ~ 返回根目录</span><br><span class="line">rm hello  <span class="comment">#删除hello文件夹 可以用rm -rf hello  但是我试验是没有rf这个参数</span></span><br><span class="line">echo . &gt; index.html <span class="comment">#创建index.html文件或者是写入.进 index.html文件</span></span><br><span class="line">ls    <span class="comment"># 查看当前文件夹下的文件  貌似可以+个  -al 参数查看所有文件</span></span><br></pre></td></tr></table></figure>
-<h3 id="bower">bower</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install angular  // &#33719;&#21462;bower&#29256;&#26412;&#24211;&#20013;&#30340;angular&#39033;&#30446;&#10;bower init  // &#29983;&#25104; bower.json&#25991;&#20214;&#10;bower install angular --save  //&#33719;&#21462;bower&#29256;&#26412;&#24211;&#20013;&#30340;angular&#39033;&#30446;&#24182;&#28155;&#21152;&#36827;bower.json&#20869;&#37096;&#30340;dependencies&#20869; &#10;bower install angular --save-dev //&#33719;&#21462;bower&#29256;&#26412;&#24211;&#20013;&#30340;angular&#39033;&#30446;&#24182;&#28155;&#21152;&#36827;bower.json&#20869;&#37096;&#30340; devdependencies &#20869;&#10;&#10;.bowerrc  //&#25991;&#20214;&#20869;&#37096; &#21487;&#20197;&#20351;&#29992; &#8216;proxy&#8217; || &#8216;https-proxy&#8217;&#26469;&#35774;&#32622;&#20195;&#29702;</span><br></pre></td></tr></table></figure>
-<h3 id="yeoman">yeoman</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install generator-angular //&#19979;&#36733;angular&#21253; yeoman&#30340;angular&#21253;&#10;yo angular learnangular  //&#31359;&#20214;angular &#39033;&#30446; &#39033;&#30446;&#21517;&#20026; learnangular</span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/blog/2015/05/07/useVSCode/" title="使用Visual Studio code" itemprop="url">使用Visual Studio code</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/blog/about" title="ittce" target="_blank" itemprop="author">ittce</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-07T05:50:56.000Z" itemprop="datePublished"> 發表於 2015-05-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="快捷键">快捷键</h3><ul>
-<li>ctrl+b 打开或关闭侧边栏</li>
-<li>ctrl+\ 打开多个editor</li>
-<li>ctrl+e 快速的通过名字打开一个文件</li>
-<li>右键选择 Reveal in Explorer 打开文件夹</li>
-<li>ctrl+tab 快速打开当前floder下的文件</li>
-<li>alt+← 打开你上次打开的文件</li>
-<li>alet+→ 打开你打开当前文件下次打开的文件</li>
-<li>ctrl+alt+] 快速跳转到大括号中括号的开始或者结束位置</li>
-<li>ctrl + s 保存到disk（磁盘）</li>
-<li>按着alt键+鼠标左键可以添加多处编辑</li>
-<li>ctrl+alt+↑ 或者 ctrl + alt + ↓ 可以添加上下的多处编辑 但是会和显卡的快捷键冲突，要先关闭显卡快捷键</li>
-<li><p>ctrl+shift+f 查询当前目录下的文件 支持正则查询</p>
-</li>
-<li><p>ctrl+space 触发代码提示</p>
-</li>
-<li>ctrl+click 可以跳转到定义函数的位置</li>
-<li>ctrl+alt+click 可以新打开一个editor 显示函数的定义</li>
-<li>ctrl+hover 可以显示函数定义的内容</li>
-<li>ctrl+alt+f 格式化代码</li>
-<li>alt + ↑  ↓ 切换当前行的位置</li>
-<li>shift + alt + ↑  ↓  复制当前行到上下行</li>
-<li>ctrl+enter 此行后插入一行</li>
-<li>ctrl+shift+enter 此行前插入一行</li>
-<li>神器 使用ctrl+shift+o 可以打开当前文件定义的所有函数的索引 可以使用 ↑ ↓ 来索引</li>
-<li>ctrl+shift+k 删除当前行</li>
-<li>shift+delete 剪切当前行</li>
-<li>ctrl+shift+l 选择所有相同的编辑</li>
-<li>ctrl+[ ] 缩进当前行</li>
-<li>home  end  行首 行尾  同时按ctrl 文件首 文件尾</li>
-<li>ctrl+f 查找</li>
-<li><p>ctrl+h 替换</p>
-</li>
-<li><p>当你打开的是一个git项目的时候 vscode 会自动给你添加注释</p>
-</li>
-<li>红三角表示，当前行已被删除</li>
-<li>绿色条表示新添加的行</li>
-<li>蓝色条指示修改的行</li>
-</ul>
-<p>对于vscode 支持的语言 悬停将显示有用的信息如类型的符号</p>
-<ul>
-<li>ctrl+shift+m 可以看到所有的错误信息</li>
-<li><a href="https://code.visualstudio.com/Docs/customization#_customizing-keyboard-shortcuts" target="_blank" rel="external">快捷键相关</a></li>
-</ul>
-<p>语言支持 支持很多 例如 c# c++  等等 这里只写 html  css sass less  javascript<br>支持javascript  代码自动验证规则<br>会引起警告的操作</p>
-<ol>
-<li>使用别的类型重新生命变量</li>
-<li>无效的分号插入</li>
-<li>使用一个未定义的变量</li>
-<li>一个没有用到的函数</li>
-<li>没有用到的变量</li>
-</ol>
-<ul>
-<li><p>html：</p>
-<ul>
-<li>内部自动支持emmet</li>
-<li>代码自动高亮</li>
-<li>代码提示</li>
-<li>你可以通过 ctrl+space 呼出</li>
-</ul>
-</li>
-<li><p>css less sass</p>
-<ul>
-<li>语法着色</li>
-<li>颜色预览注释</li>
-<li>验证css语法使用 csslint</li>
-<li>在文件中转到符号 ctrl+shift+o</li>
-<li>支持emmet的css代码自动生成</li>
-<li>ctrl+shift 自动切换默认值</li>
-<li>hover时显示dom节点信息</li>
-<li>找到关键字和 变量在同一个文件中的引用</li>
-<li>可以配置csslint lesslint sasslint的代码验证规则</li>
-</ul>
-</li>
-</ul>
-<p>vscode 支持常用的git 命令 但是不要忘记 命令行仍然是你的朋友查看code相关的git命令可以<a href="https://code.visualstudio.com/Docs/versioncontrol" target="_blank" rel="external">看这里</a> 工作中使用svn因此没往下看</p>
-<p>debugger<br><a href="https://code.visualstudio.com/Docs/debugging" target="_blank" rel="external">debugger</a> 相关</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/blog/2015/05/07/javascripScope/" title="[译]你该知道的javascript作用域 (javascript scope)" itemprop="url">[译]你该知道的javascript作用域 (javascript scope)</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/blog/about" title="ittce" target="_blank" itemprop="author">ittce</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-07T03:28:35.000Z" itemprop="datePublished"> 發表於 2015-05-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><a href="http://toddmotto.com/everything-you-wanted-to-know-about-javascript-scope/" target="_blank" rel="external">原文地址</a><br><a href="http://www.heibaipig.com/blog/?p=292" target="_blank" rel="external">黑哥版本1</a><br><a href="http://www.heibaipig.com/blog/?p=313" target="_blank" rel="external">黑哥版本2</a><br>javascript有一些对于初学者甚至是有经验的开发者都难以理解的概念. 这个部分是针对那些听到 : 作用域, 闭包, this, 命名空间, 函数作用域, 函数作用域, 全局作用域, 变量作用域(后续翻译这个词我也没太懂), 公共/私有 作用域 后想要深入了解的人的. 当你看完这篇文章后你将了解有关以下问题的答案: </p>
-<ul>
-<li>什么是作用域</li>
-<li>什么是全局/局部 作用域</li>
-<li>什么是命名空间,他和作用域的不同</li>
-<li>this是什么,它是怎样被作用域影响的</li>
-<li>什么是函数/lexical 作用域</li>
-<li>什么是闭包</li>
-<li>什么是公共/私有 作用域</li>
-<li>我们如何了解/创建/使用 以上的概念</li>
-</ul>
-<h3 id="什么是作用域_?">什么是作用域 ?</h3><p>在javasript中, 作用域指你的代码当前的上下文. 作用域有全局和局部的区别. 了解javascript作用域是你书写出更健壮的代码和成为更好的开发者的钥匙. 你将了解变量/函数 在那里是可访问的, 改变你的代码的作用域, 并且更快的写出更易于维护和调试的代码.思考作用域是很容易的, 我们是在作用A 或 作用域B的内部</p>
-<h3 id="什么是全局作用域_?">什么是全局作用域 ?</h3><p>当你写下一行代码之前, 你就在我们叫做全局作用域里 ; 如果此时我们声明(declare)一个变量(variable), 那他默认就是全局的( globally ).<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//全局作用域 global scope</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">"Todd"</span></span><br></pre></td></tr></table></figure></p>
-<p>全局作用域是你最好朋友, 同时也是你的噩梦,学习控制作用域是容易的, 这样做你将避免在全局作用域中运行时的问题(通常是命名空间冲突);你经常听说’全局作用域是不好的’, 但是没有人证明为什么. 全局作用域不是坏的, 你需要通过它创建可访问的 Modules/APIs, 你必须使用并发挥它的优势, 确保不会出现问题.</p>
-<p>任何人使用jQuery的时候要这样做:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jQuery(<span class="string">'.myClass'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>我们在全局作用域访问jQuery, 我们可以参考此次访问的命名空间. 命名空间偶尔作为一个作用域使用, 但是通常是指那些最顶级的作用域. 在这个例子里, jQuery在全局作用域中, 但是也是我们的命名空间. 这个jQuery的命名空间默认的存在在全局作用域下, 它充当了jQuery库的命名空间, 在它内部的所有东西充当了这个命名空间的后代. </p>
-<h3 id="什么是局部作用域_?">什么是局部作用域 ?</h3><p>局部作用域是指在全局作用域内部定义(defined:定义, default:默认)的作用域. 通常在一个全局作用域内定义的任何一个函数都有自身的局部作用域. 在函数内部定义的函数也拥有一个看起来像外部函数的局部作用域. 如果我们在一个函数内部定义了变量,那么这些函数的作用域就在函数内部. 像这个例子 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">//Scope A : global scope out here </span></span><br><span class="line">  <span class="keyword">var</span> myFuntion = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//ScopeB : local scope in here</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="string">``</span><span class="string">` </span><br><span class="line">除非暴漏出来,否则局部作用域成员在全局作用域内是不可见的. 意思是如果我们定义一些函数和变量在一个新的作用域内, 在这个作用域外它是不可访问的. 一个简单的例子如下 : </span><br><span class="line">`</span><span class="string">``</span>js</span><br><span class="line">  <span class="keyword">var</span> myFunction = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"ittce"</span>;</span><br><span class="line">    <span class="built_in">console</span>.log( name );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log( name );<span class="comment">// Uncaught ReferenceError: name is not defined</span></span><br></pre></td></tr></table></figure></p>
-<p>这个变量name在局部作用域内, 它没有暴漏在父级作用域内, 因此显示未定义.</p>
-<h3 id="函数作用域">函数作用域</h3><p>javascript中的所有作用域只能靠函数创建, 不能靠for/while 循环或者表达式声明(if, switch)来创建. 新函数 = 新作用域, 这是规矩.一个例子来演示作用域的创建:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Scope A</span></span><br><span class="line"><span class="keyword">var</span> myFunction = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">//Scope B</span></span><br><span class="line">  <span class="keyword">var</span> muOtherFunction = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//Scope C</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>创建一个局部作用域和局部 变量/函数/对象 是很容易的. </p>
-<h3 id="词法作用域(_Lexical_scope_)">词法作用域( Lexical scope )</h3><p>当你看到一个函数在另外一个函数内部, 内部函数可以访问到外部函数的作用域, 它被叫做词法作用域 或 闭包, 也被称为静态作用域.下面是一个最容易的演示例子:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Scope A</span></span><br><span class="line"><span class="keyword">var</span> myFunction = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="comment">//Scope B</span></span><br><span class="line">  <span class="keyword">var</span> name = <span class="string">"ittce"</span>; <span class="comment">// defined in Scope B</span></span><br><span class="line">  <span class="keyword">var</span> myOtherFunction = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//Scope C : name is accessible here ! name 可以在这里访问到</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>你发现 myOtherFunction 在这里不应该被这样叫, 它只是简单的定义在这里. 调用命令也会引起变量和作用域的反应, 这里我定义我的函数并调用它在另外一个console的下面 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myFunction = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name =<span class="string">"ittce"</span>;</span><br><span class="line">  <span class="keyword">var</span> myOtherFunction = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"My name is"</span> + name );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log( name );</span><br><span class="line">  myOtherFunction();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 将要输出:</span></span><br><span class="line"><span class="comment">// ittce</span></span><br><span class="line"><span class="comment">// My name is ittce</span></span><br></pre></td></tr></table></figure></p>
-<p>词法作用域是易于使用的, 任何定义于它作用域链顶端的变量/函数/对象,在它的作用域内都是可用的.像这个例子:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'ittce'</span>;</span><br><span class="line"><span class="keyword">var</span> scope1 = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// name is available here  name 在这里是可用的</span></span><br><span class="line">  <span class="keyword">var</span> scope2 = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// name is  available here too</span></span><br><span class="line">    <span class="keyword">var</span> scope3 = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">// name is also available here</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里最重要的是记得词法作用域是不可逆的. 这里我们可以看到为什么词法作用域不可访问 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// name = undefined</span></span><br><span class="line"><span class="keyword">var</span> scope1 = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// name = undefined</span></span><br><span class="line">  <span class="keyword">var</span> scope2 = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// name = undefined</span></span><br><span class="line">    <span class="keyword">var</span> scope3 = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> name = <span class="string">'ittce'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我可以总是返回name的一个引用, 但是并不是它自身.</p>
-<h3 id="作用域链">作用域链</h3><p>作用域链建立在一个特定的函数作用域之上. 定义的每个函数都有它自身的作用域嵌套, 因此我们知道, 定义在另一个函数内部的函数拥有一个和外部函数联系的局部作用域, 这种联系我们叫做链. 它总是有一个位置在那个确定的作用域内. 当开始解析一个变量, javascript会从最内部的作用域逐层向外查找直到找到这个变量/对象/函数, 或没找到返回undefined错误.</p>
-<h3 id="闭包">闭包</h3><p>闭包和词法作用域的联系非常密切, 一个更好的例子去演示闭包如何工作, 一个实际例子如下,当函数内部返回另一个函数的引用时.在父作用域内, 我们可以访问到内部作用域返回的东西 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sayHello = <span class="function"><span class="keyword">function</span> <span class="params">( name )</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">"hello,"</span> + name ();</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( text );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>闭包概念可以使我们内部作用域的东西私有化,无法被外部作用域所访问. 当我们单独调用这个函数时, 他将不做任何事, 因为它返回的是一个函数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sayHello( <span class="string">'ittce'</span> );<span class="comment">// 没有事情发生, 也不报错, 只有沉默</span></span><br></pre></td></tr></table></figure></p>
-<p>该函数返回一个函数, 这意味着它需要分配, 然后再次调用 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> helloIttce = sayHello( <span class="string">'ittce'</span> );</span><br><span class="line">helloIttce(); <span class="comment">// will call the closure and log 'hello, ittce';</span></span><br></pre></td></tr></table></figure></p>
-<p>好的, 我说谎了, 你可以不用分配就调用它, 你可以能已经看到过这种调用闭包的方式 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sayHello( <span class="string">'ittce'</span> )();</span><br></pre></td></tr></table></figure></p>
-<p>AngularJS中的 $.compile 使用了以上的技术在闭包中传递当前的作用域引用 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  $.compile( template )( scope );</span><br><span class="line"><span class="string">``</span><span class="string">` </span><br><span class="line">意思是我们可以猜到它内部的代码简化版本像这样:</span><br><span class="line">`</span><span class="string">``</span>js</span><br><span class="line">  <span class="keyword">var</span> $compile = <span class="function"><span class="keyword">function</span> <span class="params">( template )</span> </span>&#123;</span><br><span class="line">    <span class="comment">// some magic stuff here</span></span><br><span class="line">    <span class="comment">// scope is out of scope, though...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">( scope )</span></span>&#123;</span><br><span class="line">      <span class="comment">// access to `template` and `scope` to do magic with too</span></span><br><span class="line">      <span class="comment">// 这里仍然可以访问到 'template' 和 'scope' 做我们想做的事情</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>一个函数不需要返回一个调用闭包的命令也可以调用闭包. 简单的直接访问外部变量的词法作用域来创建一个闭包. </p>
-<h3 id="作用域_和_this">作用域 和 this</h3><p>依据函数如何被调用给this绑定一个不同的作用域. 我们都使用过this, 但并不都了解它被调用时的不同. 在客户端默认的this指向最外部的全局对象, window. 我们很容易发现在不同的调用方式下, this具有不同的值 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myFunction = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="keyword">this</span> ) <span class="comment">// this 这是是全局对象 window</span></span><br><span class="line">&#125;</span><br><span class="line">myFunction();</span><br><span class="line"><span class="keyword">var</span> myObject = &#123;&#125;;</span><br><span class="line">myObject.myMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="keyword">this</span> ) <span class="comment">// this 这里指向 对象 myObject</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> nav = <span class="built_in">document</span>.querySelector(<span class="string">'.nav'</span>);</span><br><span class="line"><span class="keyword">var</span> toggleNav = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="keyword">this</span> );</span><br><span class="line">&#125;</span><br><span class="line">nav.addEventListener(<span class="string">'click'</span>, toggleNav, <span class="literal">false</span> );  <span class="comment">// 这里调用函数时, this 指向 .nav 这个DOM element</span></span><br></pre></td></tr></table></figure></p>
-<p>当我们使用this时, 也会经常出现问题. 例如像下面这样, 甚至在相似的函数内部那些作用域和this的值都可以被改变的:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nav = <span class="built_in">document</span>.querySelector(<span class="string">'.nav'</span>);</span><br><span class="line"><span class="keyword">var</span> toggleNav = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="keyword">this</span> ); <span class="comment">// nav element</span></span><br><span class="line">  setTimeout( <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="keyword">this</span> ); <span class="comment">// window</span></span><br><span class="line">  &#125;, <span class="number">500</span> );</span><br><span class="line">&#125;;</span><br><span class="line">nav.addEventListener(<span class="string">'click'</span>, toggleNav, <span class="literal">false</span> );</span><br></pre></td></tr></table></figure></p>
-<p>这里发生了什么呢 ? 我们创建了一个不调用我们事件处理程序的新的作用域, 因此他像预期的那样指向了全局作用域: window. 有几种方法可以让this不受新作用域的影响, 像我们预期的那样工作. 你可以已经了解过这个, 我们可以使用一个 that 变量缓存this的引用 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nav = <span class="built_in">document</span>.querySelector( <span class="string">'.nav'</span> );</span><br><span class="line"><span class="keyword">var</span> toggleNav = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">  setTimeout( <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( that );</span><br><span class="line">  &#125;, <span class="number">500</span>);</span><br><span class="line">&#125;;</span><br><span class="line">nav.addEventListener(<span class="string">'click'</span>, toggleNav, <span class="literal">false</span> );</span><br></pre></td></tr></table></figure></p>
-<p>这样一个小花招可以让this在新创建的作用域内按我们预期的那样指向正确的值. </p>
-<h3 id="使用_apply(),_call(),_bind()_修改作用域">使用 apply(), call(), bind() 修改作用域</h3><p>有时你需要操纵javascript作用域像你想的那样工作. 一个简单的例子来演示在循环中, 作用域是怎么改变的:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> links = <span class="built_in">document</span>.querySelectorAll(<span class="string">'a'</span>);</span><br><span class="line"><span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; links.length; i++ )&#123;</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="keyword">this</span> ); <span class="comment">// this = window</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里this的值不指向我们的DOM节点, 我们没有调用任何东西或者改变作用域. 让我们看下我们如何修改作用域( 它看起来像是我们改变了作用域, 其实是改变了函数被调用时的上下文执行环境 ).</p>
-<h4 id="call()_&amp;&amp;_apply()">call() &amp;&amp; apply()</h4><p>call() &amp;&amp; apply() 方法真的很棒, 它可以允许你传递一个绑定正确this的作用域给函数. 让我们操作以上的函数, 让他们的this指向各自的在数组中DOM节点 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> links = <span class="built_in">document</span>.querySelectorAll( <span class="string">'a'</span> );</span><br><span class="line"><span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; links.length; i++ ) &#123;</span><br><span class="line">  ( <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="keyword">this</span> );</span><br><span class="line">  &#125;).call( links[i] );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>你可以看到我们传递传递在数组中迭代的当前的节点: links[i], 这改变了函数的作用域, 使this指向了迭代的DOM节点. 如果我们需要的话, 我们可以使用这个this. 我们可以使用call()  &amp;&amp; apply() 来改变函数的作用域, 但是更进一步的参数传递两者有区别 : call( scope, arg1, arg2 )需要单个的用参数, 使用逗号分隔 ; apply( scope, [ agr1, agr2] )接受一个参数数组.重要的是要记住: 使用 apply() 或 call()时实际上调用了函数,因此不要这样:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myFunction();</span><br></pre></td></tr></table></figure></p>
-<p>你需要用.call()处理它,并链接到这个方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myFunction.call();</span><br></pre></td></tr></table></figure></p>
-<h4 id="bind()">bind()</h4><p>不向上面一样, 使用 .bind() 不会调用函数, 它仅仅是在函数被调用之前绑定值.这个方法在ECMAScipt5中才被引入真是一个耻辱,因为它实在太棒了. 你知道在函数引用时我们不能够传递参数, 像这样 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//工作</span></span><br><span class="line">nav.addEventListener(<span class="string">'click'</span>, toggleNav, <span class="literal">false</span> );</span><br><span class="line"><span class="comment">//立刻执行</span></span><br><span class="line">nav.addEventListener(<span class="string">'click'</span>, toggleNav( arg1, agr2 ), <span class="literal">false</span> );</span><br></pre></td></tr></table></figure></p>
-<p>我们可以解决这个问题, 但是需要在它里面创建一个新的函数 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nav.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  toggleNav( arg1, agr2 );</span><br><span class="line">&#125;, <span class="literal">false</span> );</span><br></pre></td></tr></table></figure></p>
-<p>但是这改变了作用域并且我们创建了一个不必要的函数, 如果我们需要在循环中添加事件监听,这将是巨大的性能浪费. 这就是 .bind()闪耀的原因, 我们可以不调用函数的情况下, 传递参数给它 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nav.addEventListener( <span class="string">'click'</span>, toggleNav.bind( scope, arg1, arg2 ), <span class="literal">false</span> );</span><br></pre></td></tr></table></figure></p>
-<p>函数没有被调用, 但是作用域已经根据需求改变, 参数坐等函数调用时传递.</p>
-<h3 id="私有和公共作用域">私有和公共作用域</h3><p>在许多程序设计语言中, 你可能听说过 公共 和 私有 作用域, 但是在 javascript 中不存在这些. 可是我们可以通过闭包来模拟公共和私有作用域. 通过javascript设计模式 , 例如单例模式, 我们可以创建公共和私有作用域. 一个简单的方法去创建私有作用域, 是在我们的函数们外包一层函数. 像我们学习的那样, 函数创建的作用域内 , 可以保存东西不被外部作用域访问到 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">( <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 私有作用域</span></span><br><span class="line">&#125; )();</span><br></pre></td></tr></table></figure></p>
-<p>我们可以在添加一些功能, 在我们的app中使用 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">( <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> myFunction = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//可以在这里做一些事</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125; )()</span><br></pre></td></tr></table></figure></p>
-<p>当我们调用我们的功能, 在外部作用域我们无法访问到它 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">( <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> myFunction = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//可以在这里做一些事</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125; )();</span><br><span class="line">myFunction();<span class="comment">// Uncaught ReferenceError: myFunction is not defined</span></span><br></pre></td></tr></table></figure></p>
-<p>成功了! 我们创建了私有作用域. 但是我想把函数公开呢 ? 这里有一个很棒的模式( 叫 模块模式 或 揭示模块模式 )允许我们的函数在作用域内正常的工作, 使用私有和公共的作用域 和一个对象. 这里我们将包含我们所有的代码的全局命名空间叫做模块.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义 module</span></span><br><span class="line"><span class="keyword">var</span> Module = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    myMethod: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'myMethod has been called.'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用 module + methods</span></span><br><span class="line">Module.myMethod();</span><br></pre></td></tr></table></figure></p>
-<p>这里的 return 语句 返回我们所有可以通过命名空间访问的公共方法. 这意味到我们的模块关联到了我们的命名空间, 并且包含了我们想要的许多方法. 我们可以按照我们的希望扩展我们的模块 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义模块</span></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">module</span> = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    myMethod : <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;&#125;,</span><br><span class="line">    someOtherMethod : <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">// call module + methods</span></span><br><span class="line">Module.myMethod();</span><br><span class="line">Module.someOtherMethod();</span><br></pre></td></tr></table></figure></p>
-<p>那么为什么使用私有方法 ? 因为很多的开发者将他们的函数放在全局作用域下污染命名空间. 函数帮助我们的代码工作, 但是并不需要将他们放在全局命名空间内, 只需要使用 API 调用就可以了. 下面是我们通过不返回函数创建的私有作用域 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Module = ( <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> privateMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    publicMethod : <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
-<p>这意味着 publicMethod 可以被调用, 但是 privateMethod 不可以, 因为它在私有作用域内. 这些私有作用域内的函数可以是任何你想到功能 : addClass, removeClass, Ajax/XHR calls, Arrays, Objects, helper.这是一个有趣的转折, 在同一个作用域内的东西可以访问同一作用域内的所有东西, 即使它被返回出去. 这意味着 我们公共的方法可以访问到我们私有的那些, 因此他们虽然在全局作用内不可访问, 但仍受到影响.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Module = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> privateMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    publicMethod: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">// 可以访问私有方法</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>这使得我们将代码的安全提升到一个更高的水平. 确保代码安全是javascript一个很重要的方面, 因此我们不能将所有的功能都放在全局作用域公开, 这样面对脆弱的攻击也是很容易攻破的. 下面是一个利用公共和私有方法, 返回一个对象的例子 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Module = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> myModule = &#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> privateMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line">  myModule.publicMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line">  myModule.anotherPublicMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> myModule; <span class="comment">// returns the Object with public methods</span></span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// usage</span></span><br><span class="line">Module.publicMethod();</span><br></pre></td></tr></table></figure></p>
-<p>一个整洁的命名规法是用 ‘_’ 开头命名私有方法, 这可以直观的帮你区分私有和公共方法 :<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Module = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _privateMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> publicMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>我们可以返回一个匿名的对象帮助我们通过对象的方式简单的访问一个功能引用.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Module = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _privateMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> publicMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    publicMethod: publicMethod,</span><br><span class="line">    anotherPublicMethod: anotherPublicMethod</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>Happy scoping !</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <time datetime="2015-05-07T03:28:35.000Z" itemprop="datePublished">2015-05-07</time>
+  </a>
+</section>
 
 
 
@@ -674,13 +273,14 @@
 	
 	
 	<section class="info">
-		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+		<p> Hello ,I&#39;m ittce in BeiJing. <br/>
 			This is my blog,believe it or not.</p>
 	</section>
 	 
 	<div class="social-font" class="clearfix">
 		
 		
+		<a href="https://github.com/ittce" target="_blank" class="icon-github" title="github"></a>
 		
 		
 		
@@ -688,6 +288,11 @@
 		
 		
 		
+		<a href="https://www.zhihu.com/people/ittce" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:clearfix@sina.com" target="_blank" class="icon-email" title="Email Me"></a>
 		
 	</div>
 			
@@ -753,6 +358,18 @@ $(document).ready(function(){
 
 
 
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ittce"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
 
 
 

@@ -11,18 +11,24 @@
     
 
     
-    <meta name="description" content="先说下我用sass的前提，产品经理对产品的要求很奇怪，而且对甩锅很有心得，不在沉默中爆发，就在沉默中接锅 -，-  于是我学会了用sass躺着接锅，告别了css的站着接锅时代-，-如果你们的产品没有这么尽sang善xin尽bing美kuang，其实css已经可以解决很多问题了2015/4/27 修改 此修改借鉴和学习imooc Sass和Compass必备技能之Compass
-下载环境因为comp">
+    <meta name="description" content="2015/4/27 修改 此修改借鉴和学习imooc Sass和Compass必备技能之Compass
+下载环境因为compass和sass基于Ruby，因此需要先下载Ruby 点这里windows平台点这里
+下载好Ruby后在快速启动栏里有 Start Command Prompt With Ruby 或者直接打开命令行点击运行，输入1sudo gem install compass
+即可自动下">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sass和compass使用">
 <meta property="og:url" content="http://ittce.github.io/blog/2015/05/29/compass/index.html">
 <meta property="og:site_name" content="ittce blog">
-<meta property="og:description" content="先说下我用sass的前提，产品经理对产品的要求很奇怪，而且对甩锅很有心得，不在沉默中爆发，就在沉默中接锅 -，-  于是我学会了用sass躺着接锅，告别了css的站着接锅时代-，-如果你们的产品没有这么尽sang善xin尽bing美kuang，其实css已经可以解决很多问题了2015/4/27 修改 此修改借鉴和学习imooc Sass和Compass必备技能之Compass
-下载环境因为comp">
+<meta property="og:description" content="2015/4/27 修改 此修改借鉴和学习imooc Sass和Compass必备技能之Compass
+下载环境因为compass和sass基于Ruby，因此需要先下载Ruby 点这里windows平台点这里
+下载好Ruby后在快速启动栏里有 Start Command Prompt With Ruby 或者直接打开命令行点击运行，输入1sudo gem install compass
+即可自动下">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sass和compass使用">
-<meta name="twitter:description" content="先说下我用sass的前提，产品经理对产品的要求很奇怪，而且对甩锅很有心得，不在沉默中爆发，就在沉默中接锅 -，-  于是我学会了用sass躺着接锅，告别了css的站着接锅时代-，-如果你们的产品没有这么尽sang善xin尽bing美kuang，其实css已经可以解决很多问题了2015/4/27 修改 此修改借鉴和学习imooc Sass和Compass必备技能之Compass
-下载环境因为comp">
+<meta name="twitter:description" content="2015/4/27 修改 此修改借鉴和学习imooc Sass和Compass必备技能之Compass
+下载环境因为compass和sass基于Ruby，因此需要先下载Ruby 点这里windows平台点这里
+下载好Ruby后在快速启动栏里有 Start Command Prompt With Ruby 或者直接打开命令行点击运行，输入1sudo gem install compass
+即可自动下">
 
     
     <link rel="alternative" href="/atom.xml" title="ittce blog" type="application/atom+xml">
@@ -102,7 +108,7 @@
 		
 		</div>
 		
-		<p>先说下我用sass的前提，产品经理对产品的要求很奇怪，而且对甩锅很有心得，不在沉默中爆发，就在沉默中接锅 -，-  于是我学会了用sass躺着接锅，告别了css的站着接锅时代-，-如果你们的产品没有这么尽sang善xin尽bing美kuang，其实css已经可以解决很多问题了<br>2015/4/27 修改 此修改借鉴和学习<a href="http://imooc.com/learn/371" target="_blank" rel="external">imooc Sass和Compass必备技能之Compass</a></p>
+		<p>2015/4/27 修改 此修改借鉴和学习<a href="http://imooc.com/learn/371" target="_blank" rel="external">imooc Sass和Compass必备技能之Compass</a></p>
 <h3 id="下载环境">下载环境</h3><p>因为compass和sass基于Ruby，因此需要先下载Ruby <a href="https://www.ruby-lang.org/zh_cn/downloads/" target="_blank" rel="external">点这里</a><br>windows平台<a href="http://rubyinstaller.org/downloads/" target="_blank" rel="external">点这里</a></p>
 <p>下载好Ruby后在快速启动栏里有 Start Command Prompt With Ruby 或者直接打开命令行<br>点击运行，输入<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install compass</span><br></pre></td></tr></table></figure></p>
 <p>即可自动下载好compass和sass，一般直接compass 和 sass 一起就有了，如果没有的话<br>可以将compass 改成 sass 在执行一次，在window下 省略 sudo<br>安装compass最近出现了一些问题，需要修改gem的地址为淘宝的镜像地址具体操作如下：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> gem source --remove <span class="symbol">https:</span><span class="symbol">://rubygems</span>.org/</span><br><span class="line"> gem sources -a <span class="symbol">https:</span><span class="symbol">://ruby</span>.taobao.org/</span><br><span class="line"> gem sources -l</span><br><span class="line"><span class="string">``</span><span class="string">` </span><br><span class="line">修改之后正在执行</span><br><span class="line">`</span><span class="string">``</span>ruby</span><br><span class="line">gem install compass</span><br></pre></td></tr></table></figure></p>

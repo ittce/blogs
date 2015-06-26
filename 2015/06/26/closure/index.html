@@ -1,0 +1,421 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>closure | ittce blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ittce">
+    
+
+    
+    <meta name="description" content="这几天看《javascript设计模式和开发实践》留一些读书笔记吧。说闭包之前先讲一下需要的背景知识；
+词法作用域这一块讲的比较粗一点，具体可以看我的另一篇博客(你该知道javascript作用域)[http://ittce.github.io/blog/2015/05/07/javascripScope/]我们知道在js中作用域是跟着函数走的，一个函数定义一块作用域。处在同一个作用域链中的位于作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="closure">
+<meta property="og:url" content="http://ittce.github.io/blog/2015/06/26/closure/index.html">
+<meta property="og:site_name" content="ittce blog">
+<meta property="og:description" content="这几天看《javascript设计模式和开发实践》留一些读书笔记吧。说闭包之前先讲一下需要的背景知识；
+词法作用域这一块讲的比较粗一点，具体可以看我的另一篇博客(你该知道javascript作用域)[http://ittce.github.io/blog/2015/05/07/javascripScope/]我们知道在js中作用域是跟着函数走的，一个函数定义一块作用域。处在同一个作用域链中的位于作">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="closure">
+<meta name="twitter:description" content="这几天看《javascript设计模式和开发实践》留一些读书笔记吧。说闭包之前先讲一下需要的背景知识；
+词法作用域这一块讲的比较粗一点，具体可以看我的另一篇博客(你该知道javascript作用域)[http://ittce.github.io/blog/2015/05/07/javascripScope/]我们知道在js中作用域是跟着函数走的，一个函数定义一块作用域。处在同一个作用域链中的位于作">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ittce blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/blog/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/blog/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/blog/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/blog/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/blog/"><img src="/blog/img/logo.png" alt="ittce blog" title="ittce blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/blog/" title="ittce blog">ittce blog</a></h1>
+				<h2 class="blog-motto">The most difficult thing is the decision to act, the rest is merely tenacity.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/blog/">首页</a></li>
+					
+						<li><a href="/blog/archives">文章列表</a></li>
+					
+						<li><a href="/blog/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ittce.github.io/blog">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/blog/2015/06/26/closure/" title="closure" itemprop="url">closure</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/blog/about" title="ittce" target="_blank" itemprop="author">ittce</a>
+		
+  <p class="article-time">
+    <time datetime="2015-06-26T07:43:16.000Z" itemprop="datePublished"> 發表於 2015-06-26</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#词法作用域"><span class="toc-number">1.</span> <span class="toc-text">词法作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是闭包"><span class="toc-number">2.</span> <span class="toc-text">什么是闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一种方式解析"><span class="toc-number">2.1.</span> <span class="toc-text">第一种方式解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二种方式为什么构成了闭包"><span class="toc-number">2.2.</span> <span class="toc-text">第二种方式为什么构成了闭包</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>这几天看《javascript设计模式和开发实践》留一些读书笔记吧。说闭包之前先讲一下需要的背景知识；</p>
+<h3 id="词法作用域">词法作用域</h3><p>这一块讲的比较粗一点，具体可以看我的另一篇博客(你该知道javascript作用域)[<a href="http://ittce.github.io/blog/2015/05/07/javascripScope/" target="_blank" rel="external">http://ittce.github.io/blog/2015/05/07/javascripScope/</a>]<br>我们知道在js中作用域是跟着函数走的，一个函数定义一块作用域。处在同一个作用域链中的位于作用域底端的函数可以访问位于作用域顶端的函数的作用域内的变量，函数等等。这个就是词法作用域。</p>
+<h3 id="什么是闭包">什么是闭包</h3><p>当一个函数内部返回一个函数时，这时候我们可以函数外部调用返回的这个函数时，就构成了闭包；上一段代码<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">  </span><br><span class="line">    <span class="keyword">var</span> nodes = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>);</span><br><span class="line">    <span class="comment">//第一种</span></span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">var</span> i = <span class="number">0</span>, l = nodes.length; i &lt; l; i++ )&#123;</span><br><span class="line">      nodes[i].onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">        alert(i);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//第二种</span></span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">var</span> i = <span class="number">0</span>, l = nodes.length; i &lt; l; i++ )&#123;</span><br><span class="line">      (<span class="function"><span class="keyword">function</span><span class="params">( i )</span></span>&#123;</span><br><span class="line">        nodes[i].onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">          alert(i);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)( i );</span><br><span class="line">    &#125;</span><br><span class="line">  </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="第一种方式解析">第一种方式解析</h4><p>无论点击那个div都会弹出5而并不是我们想的数字，这是因为onclick事件是异步触发的。当它触发时循环已结束。所有的i都是5了。<br>这个匿名函数中的作用域是和for循环同级的全局作用域，当onclick事件触发时会在全局作用域内寻找i，此时for循环已经执行完毕，i为5，因此所有的div被点击时，都会弹出全局作用域内的5；那关于事件的绑定为什么不是就第五个绑定上了呢，因为for循环执行的当时就给所有的nodes里的元素绑定了事件。</p>
+<h4 id="第二种方式为什么构成了闭包">第二种方式为什么构成了闭包</h4><p>这里说一下我的误区，我以前一直以为这只是在for循环内部定义了一个自执行函数和闭包有什么关系呢？<br>在for循环内部定义了一个自执行函数，for循环执行了5次，自执行函数执行了5次。函数虽然执行完毕了，但是保留一个一个匿名函数在onclick时调用，这个匿名函数保留了自执行函数的作用域为自己执行的上下文环境。当onclick事件被触发时，匿名函数执行，会去查找i，在自执行函数内找到了i值。返回这个i；因此是nodes上绑定的事件的匿名函数保留了自执行函数作用域的引用，构成了闭包，因此当父函数内部定义了一个函数，而这个函数我们有办法在父函数外调用时，它就包含了父函数的作用域当作自己执行的上下文环境，就构成了闭包。</p>
+<p>根据同样的道理我们可以玩很多好玩的东西，像这样：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Type = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>, type; type = [ <span class="string">'String'</span>, <span class="string">'Array'</span>, <span class="string">'Number'</span> ][ i++ ] )&#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Type[ <span class="string">'is'</span> + type ] = <span class="function"><span class="keyword">function</span><span class="params">( obj )</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call( obj ) === <span class="string">'[object '</span> +　type + <span class="string">']'</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;)();</span><br><span class="line">  Type.isArray( [] ); <span class="comment">//true;</span></span><br><span class="line">  Type.isString( <span class="string">''</span> );<span class="comment">//true;</span></span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ittce.github.io/blog/2015/06/26/closure/" data-title="closure | ittce blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/blog/2015/06/16/javascript-high-performance/"  title="[转]Javascript高性能动画与页面渲染">
+ <strong>下一篇：</strong><br/> 
+ <span>[转]Javascript高性能动画与页面渲染
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/06/26/closure/" data-title="closure" data-url="http://ittce.github.io/blog/2015/06/26/closure/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#词法作用域"><span class="toc-number">1.</span> <span class="toc-text">词法作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是闭包"><span class="toc-number">2.</span> <span class="toc-text">什么是闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一种方式解析"><span class="toc-number">2.1.</span> <span class="toc-text">第一种方式解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二种方式为什么构成了闭包"><span class="toc-number">2.2.</span> <span class="toc-text">第二种方式为什么构成了闭包</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m ittce in BeiJing. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/ittce" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="https://www.zhihu.com/people/ittce" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:clearfix@sina.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/blog/about" target="_blank" title="ittce">ittce</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/blog/js/jquery-2.0.3.min.js"></script>
+<script src="/blog/js/jquery.imagesloaded.min.js"></script>
+<script src="/blog/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ittce"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/blog/img/scrollup.png"/></a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

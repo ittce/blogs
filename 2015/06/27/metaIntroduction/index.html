@@ -105,8 +105,7 @@ meta标签的组成：meta标签共有两个属性，它们分别是http-equiv�
 		<p>meta是html语言head区的一个辅助性标签。也许你认为这些代码可有可无。其实如果你能够用好meta标签，会给你带来意想不到的效果，meta标签的作用有：搜索引擎优化（SEO），定义页面使用语言，自动刷新并指向新的页面，实现网页转换时的动态效果，控制页面缓冲，网页定级评价，控制网页显示的窗口等！</p>
 <p>meta标签的组成：meta标签共有两个属性，它们分别是http-equiv属性和name属性，不同的属性又有不同的参数值，这些不同的参数值就实现了不同的网页功能。</p>
 <h4 id="name属性">name属性</h4><p>name属性主要用于描述网页，与之对应的属性值为content，content中的内容主要是便于搜索引擎机器人查找信息和分类信息用的。</p>
-<p>meta标签的name属性语法格式是：</p>
-<p><metaname="参数"content="具体的参数值">。</metaname="参数"content="具体的参数值"></p>
+<p>meta标签的name属性语法格式是：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"参数"</span><span class="value">content="具体的参数值"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <ul>
 <li><p>其中name属性主要有以下几种参数：　</p>
 <ol>
@@ -115,23 +114,23 @@ meta标签的组成：meta标签共有两个属性，它们分别是http-equiv�
 </li>
 </ul>
 <p>说明：keywords用来告诉搜索引擎你网页的关键字是什么。</p>
-<p>举例：<metaname="keywords"content="science,education,culture,politics,ecnomics，relationships,entertaiment,human"></metaname="keywords"content="science,education,culture,politics,ecnomics，relationships,entertaiment,human"></p>
+<p>举例：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"keywords"</span><span class="value">content="science,education,culture,politics,ecnomics，relationships,entertaiment,human"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <ol>
 <li>description(网站内容描述)</li>
 </ol>
 <p>说明：description用来告诉搜索引擎你的网站主要内容。</p>
-<p>举例：<metaname="description"content="thispageisaboutthemeaningofscience,education,culture."></metaname="description"content="thispageisaboutthemeaningofscience,education,culture."></p>
+<p>举例：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"description"</span><span class="value">content="Thispageisaboutthemeaningofscience,education,culture."</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <ol>
 <li>robots(机器人向导)</li>
 </ol>
 <p>说明：robots用来告诉搜索机器人哪些页面需要索引，哪些页面不需要索引。</p>
 <p>content的参数有all,none,index,noindex,follow,nofollow。默认是all。</p>
-<p>举例：<metaname="robots"content="none"></metaname="robots"content="none"></p>
+<p>举例：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"robots"</span><span class="value">content="none"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <ol>
 <li>author(作者)</li>
 </ol>
 <p>说明：标注网页的作者</p>
-<p>举例：<a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#x6d;&#101;&#x74;&#x61;&#x6e;&#97;&#x6d;&#x65;&#61;&#x22;&#97;&#117;&#x74;&#104;&#111;&#114;&#34;&#99;&#x6f;&#x6e;&#116;&#101;&#110;&#116;&#x3d;&#34;&#x72;&#111;&#x6f;&#x74;&#44;&#x72;&#x6f;&#x6f;&#116;&#x40;&#x78;&#120;&#120;&#x78;&#x2e;&#99;&#x6f;&#109;&#34;">&#x6d;&#101;&#x74;&#x61;&#x6e;&#97;&#x6d;&#x65;&#61;&#x22;&#97;&#117;&#x74;&#104;&#111;&#114;&#34;&#99;&#x6f;&#x6e;&#116;&#101;&#110;&#116;&#x3d;&#34;&#x72;&#111;&#x6f;&#x74;&#44;&#x72;&#x6f;&#x6f;&#116;&#x40;&#x78;&#120;&#120;&#x78;&#x2e;&#99;&#x6f;&#109;&#34;</a></p>
+<p>举例：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"author"</span><span class="value">content="root,root@xxxx.com"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <h5 id="http-equiv属性">http-equiv属性</h5><p>http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。</p>
 <p>meta标签的http-equiv属性语法格式是：</p>
 <p><metahttp-equiv="参数"content="参数变量值">；</metahttp-equiv="参数"content="参数变量值"></p>
@@ -143,41 +142,41 @@ meta标签的组成：meta标签共有两个属性，它们分别是http-equiv�
 </li>
 </ul>
 <p>说明：可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。</p>
-<p>用法：<metahttp-equiv="expires"content="fri,12jan200118:18:18gmt"></metahttp-equiv="expires"content="fri,12jan200118:18:18gmt"></p>
+<p>用法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"expires"</span><span class="value">content="Fri,12Jan200118:18:18GMT"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>注意：必须使用GMT的时间格式。</p>
 <ol>
 <li>Pragma(cache模式)</li>
 </ol>
 <p>说明：禁止浏览器从本地计算机的缓存中访问页面内容。</p>
-<p>用法：<metahttp-equiv="pragma"content="no-cache"></metahttp-equiv="pragma"content="no-cache"></p>
+<p>用法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Pragma"</span><span class="value">content="no-cache"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>注意：这样设定，访问者将无法脱机浏览。</p>
 <ol>
 <li>Refresh(刷新)</li>
 </ol>
 <p>说明：自动刷新并指向新页面。</p>
-<p>用法：<a href="metahttp-equiv=&quot;Refresh&quot;content=&quot;2;URL=http://www.jb51.net&quot;">metahttp-equiv=&quot;Refresh&quot;content=&quot;2;URL=http://www.jb51.net&quot;</a>(注意后面的引号，分别在秒数的前面和网址的后面)</p>
+<p>用法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Refresh"</span><span class="value">content="2;URL=http:</span>//<span class="attribute">www.jb51.net</span>"&gt;</span>(注意后面的引号，分别在秒数的前面和网址的后面)</span><br></pre></td></tr></table></figure></p>
 <p>注意：其中的2是指停留2秒钟后自动刷新到URL网址。</p>
 <ol>
 <li>Set-Cookie(cookie设定)</li>
 </ol>
 <p>说明：如果网页过期，那么存盘的cookie将被删除。</p>
-<p>用法：<metahttp-equiv="set-cookie"content="cookievalue=xxx;expires=friday,12-jan-200118:18:18gmt；path= "=""></metahttp-equiv="set-cookie"content="cookievalue=xxx;expires=friday,12-jan-200118:18:18gmt；path=></p>
+<p>用法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Set-Cookie"</span><span class="value">content="cookievalue=xxx;expires=Friday,12-Jan-200118:18:18GMT；path=</span>/"&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>注意：必须使用GMT的时间格式。</p>
 <ol>
 <li>Window-target(显示窗口的设定)</li>
 </ol>
 <p>说明：强制页面在当前窗口以独立页面显示。</p>
-<p>用法：<metahttp-equiv="window-target"content="_top"></metahttp-equiv="window-target"content="_top"></p>
+<p>用法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Window-target"</span><span class="value">content="_top"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>注意：用来防止别人在框架里调用自己的页面。</p>
 <ol>
 <li>content-Type(显示字符集的设定)</li>
 </ol>
 <p>说明：设定页面使用的字符集。</p>
-<p>用法：<metahttp-equiv="content-type"content="text html;charset="gb2312""></metahttp-equiv="content-type"content="text></p>
+<p>用法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"content-Type"</span><span class="value">content="text</span>/<span class="attribute">html</span>;<span class="attribute">charset</span>=<span class="value">gb2312"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <ol>
 <li>content-Language（显示语言的设定）</li>
 </ol>
-<p>用法：<metahttp-equiv="content-language"content="zh-cn"></metahttp-equiv="content-language"content="zh-cn"></p>
+<p>用法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Language"</span><span class="value">content="zh-cn"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
 <ol>
 <li>Cache-Control指定请求和响应遵循的缓存机制。<br>Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程中的缓存处理过程。请求时的缓存指令包括no-cache、no-store、max-age、max-stale、min-fresh、only-if-cached，响应消息中的指令包括public、private、no-cache、no-store、no-transform、must-revalidate、proxy-revalidate、max-age。各个消息中的指令含义如下</li>
 </ol>
@@ -197,18 +196,17 @@ meta标签的组成：meta标签共有两个属性，它们分别是http-equiv�
 </ul>
 </li>
 </ul>
-<p>写法为：<metaname="keywords"content="信息参数"></metaname="keywords"content="信息参数"></p>
+<p>写法为：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"Keywords"</span><span class="value">content="信息参数"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>meat标签的Keywords的的信息参数，代表说明网站的关键词是什么。</p>
 <ul>
-<li>META标签的Description</li>
+<li>META标签的Description<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"Description"</span><span class="value">content="信息参数"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<metaname="description"content="信息参数">
-
 <p>meta标签的Description的信息参数，代表说明网站的主要内容，概况是什么。</p>
 <ul>
 <li><p>META标签的http-equiv=Content-Typecontent=”text/html</p>
 <p>http-equiv=Content-Type代表的是HTTP的头部协议，提示浏览器网页的信息，</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">metahttp-equiv="Content-Type"content="text</span>/<span class="attribute">html</span>;<span class="attribute">charset</span>=<span class="value">信息参数"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Type"</span><span class="value">content="text</span>/<span class="attribute">html</span>;<span class="attribute">charset</span>=<span class="value">信息参数"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>meta标签的charset的信息参数如GB2312时，代表说明网站是采用的编码是简体中文；</li>
 <li>meta标签的charset的信息参数如BIG5时，代表说明网站是采用的编码是繁体中文；</li>
@@ -271,7 +269,7 @@ meta标签的组成：meta标签共有两个属性，它们分别是http-equiv�
 </ul>
 </li>
 </ul>
-</metaname="description"content="信息参数">  
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
